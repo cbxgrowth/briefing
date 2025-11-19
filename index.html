@@ -3,8 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Briefing - Escritório de Advocacia</title>
+    <title>Briefing - Sua Marca de Advocacia</title>
     <style>
+        :root {
+            --color-primary: #218091;
+            --color-primary-hover: #1a6370;
+            --color-primary-dark: #134252;
+            --color-success: #2e7d32;
+            --color-error: #c62828;
+            --color-warning: #f57c00;
+            --color-info: #1565c0;
+            --color-bg-light: #f5f5f5;
+            --color-bg-white: #ffffff;
+            --color-text-dark: #1a3a42;
+            --color-text-light: #666666;
+            --color-border: #ddd;
+            --color-border-dark: #bbb;
+            --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            --duration-fast: 150ms;
+            --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,7 +31,7 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: var(--font-family);
             background: linear-gradient(135deg, #1a3a42 0%, #2d666e 100%);
             min-height: 100vh;
             display: flex;
@@ -22,10 +41,10 @@
         }
 
         .container {
-            background: white;
-            border-radius: 12px;
+            background: var(--color-bg-white);
+            border-radius: 16px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 600px;
+            max-width: 700px;
             width: 100%;
             overflow: hidden;
         }
@@ -40,15 +59,17 @@
         .header h1 {
             font-size: 28px;
             margin-bottom: 10px;
+            font-weight: 600;
         }
 
         .header p {
             font-size: 14px;
             opacity: 0.9;
+            line-height: 1.5;
         }
 
         .progress-bar {
-            height: 4px;
+            height: 6px;
             background: #e0e0e0;
             position: relative;
             overflow: hidden;
@@ -56,9 +77,9 @@
 
         .progress-fill {
             height: 100%;
-            background: #218091;
+            background: linear-gradient(90deg, #218091, #2d666e);
             width: 8.33%;
-            transition: width 0.3s ease;
+            transition: width 0.4s ease;
         }
 
         .content {
@@ -72,13 +93,13 @@
 
         .bloco.active {
             display: block;
-            animation: fadeIn 0.3s ease;
+            animation: fadeIn 0.4s ease;
         }
 
         @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(10px);
+                transform: translateY(15px);
             }
             to {
                 opacity: 1;
@@ -86,22 +107,109 @@
             }
         }
 
+        .bloco-numero {
+            color: var(--color-primary);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
         .bloco h2 {
-            color: #1a3a42;
+            color: var(--color-text-dark);
+            margin-bottom: 10px;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .bloco-descricao {
+            color: var(--color-text-light);
+            font-size: 14px;
             margin-bottom: 25px;
-            font-size: 22px;
+            line-height: 1.6;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
 
         .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #333;
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            color: var(--color-text-dark);
             font-weight: 500;
             font-size: 14px;
+        }
+
+        .required {
+            color: var(--color-error);
+            margin-left: 4px;
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            margin-left: 8px;
+            cursor: help;
+        }
+
+        .tooltip .info-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background-color: var(--color-primary);
+            color: white;
+            font-size: 11px;
+            font-weight: bold;
+            transition: all var(--duration-fast) var(--ease-standard);
+        }
+
+        .tooltip .info-icon:hover {
+            background-color: var(--color-primary-hover);
+            transform: scale(1.15);
+        }
+
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            bottom: 130%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--color-text-dark);
+            color: white;
+            padding: 12px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            line-height: 1.5;
+            width: 240px;
+            text-align: center;
+            z-index: 1000;
+            transition: opacity var(--duration-fast) var(--ease-standard);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+            white-space: normal;
+            font-weight: 400;
+        }
+
+        .tooltip .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: var(--color-text-dark) transparent transparent transparent;
+        }
+
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
         }
 
         .form-group input[type="text"],
@@ -109,12 +217,13 @@
         .form-group textarea,
         .form-group select {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
+            padding: 12px 14px;
+            border: 1.5px solid var(--color-border);
+            border-radius: 8px;
             font-size: 14px;
             font-family: inherit;
-            transition: border-color 0.3s ease;
+            transition: all var(--duration-fast) var(--ease-standard);
+            background-color: var(--color-bg-white);
         }
 
         .form-group input[type="text"]:focus,
@@ -122,20 +231,22 @@
         .form-group textarea:focus,
         .form-group select:focus {
             outline: none;
-            border-color: #218091;
+            border-color: var(--color-primary);
             box-shadow: 0 0 0 3px rgba(33, 128, 145, 0.1);
+            background-color: var(--color-bg-white);
         }
 
         .form-group textarea {
             resize: vertical;
             min-height: 100px;
+            font-family: inherit;
         }
 
         .checkbox-group,
         .radio-group {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
         }
 
         .checkbox-group label,
@@ -144,112 +255,147 @@
             align-items: center;
             margin: 0;
             cursor: pointer;
-            font-weight: normal;
+            font-weight: 400;
+            color: var(--color-text-dark);
+            padding: 8px;
+            border-radius: 6px;
+            transition: background-color var(--duration-fast) var(--ease-standard);
+        }
+
+        .checkbox-group label:hover,
+        .radio-group label:hover {
+            background-color: var(--color-bg-light);
         }
 
         .checkbox-group input,
         .radio-group input {
-            margin-right: 10px;
+            margin-right: 12px;
             cursor: pointer;
             width: 18px;
             height: 18px;
+            accent-color: var(--color-primary);
         }
 
         .scale-group {
             display: flex;
             justify-content: space-between;
-            gap: 5px;
+            gap: 8px;
             align-items: center;
+            margin-top: 12px;
         }
 
         .scale-label {
             font-size: 12px;
-            color: #666;
+            color: var(--color-text-light);
             text-align: center;
-            flex: 1;
+            flex: 0 0 30px;
+            font-weight: 500;
         }
 
         .scale-group input[type="radio"] {
             margin: 0;
             cursor: pointer;
+            flex: 1;
+            width: 100%;
+            height: 36px;
+            -webkit-appearance: none;
+            appearance: none;
+            background-color: var(--color-bg-light);
+            border: 1.5px solid var(--color-border);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all var(--duration-fast) var(--ease-standard);
+        }
+
+        .scale-group input[type="radio"]:hover {
+            border-color: var(--color-primary);
+        }
+
+        .scale-group input[type="radio"]:checked {
+            background-color: var(--color-primary);
+            border-color: var(--color-primary);
         }
 
         .buttons {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             justify-content: space-between;
-            margin-top: 30px;
+            margin-top: 40px;
             padding-top: 30px;
-            border-top: 1px solid #eee;
+            border-top: 1px solid var(--color-border);
         }
 
         button {
-            padding: 12px 24px;
+            padding: 14px 24px;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all var(--duration-fast) var(--ease-standard);
+            flex: 1;
+            text-align: center;
+            letter-spacing: 0.3px;
         }
 
         .btn-anterior {
-            background: #f0f0f0;
-            color: #333;
-            flex: 1;
+            background: var(--color-bg-light);
+            color: var(--color-text-dark);
+            border: 1.5px solid var(--color-border);
         }
 
-        .btn-anterior:hover {
-            background: #e0e0e0;
+        .btn-anterior:hover:not(:disabled) {
+            background: var(--color-border-dark);
+            color: white;
         }
 
         .btn-proximo,
         .btn-enviar {
-            background: #218091;
+            background: var(--color-primary);
             color: white;
-            flex: 1;
         }
 
-        .btn-proximo:hover,
-        .btn-enviar:hover {
-            background: #1a6370;
+        .btn-proximo:hover:not(:disabled),
+        .btn-enviar:hover:not(:disabled) {
+            background: var(--color-primary-hover);
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(33, 128, 145, 0.3);
+            box-shadow: 0 6px 16px rgba(33, 128, 145, 0.3);
         }
 
-        .btn-anterior:disabled,
-        .btn-proximo:disabled {
+        button:disabled {
             opacity: 0.5;
             cursor: not-allowed;
             transform: none;
         }
 
         .message {
-            padding: 15px;
-            border-radius: 6px;
+            padding: 16px;
+            border-radius: 8px;
             margin-bottom: 20px;
             display: none;
             font-size: 14px;
+            border-left: 4px solid;
         }
 
         .message.success {
             background: #e8f5e9;
-            color: #2e7d32;
-            border: 1px solid #c8e6c9;
-            display: block;
+            color: var(--color-success);
+            border-left-color: var(--color-success);
         }
 
         .message.error {
             background: #ffebee;
-            color: #c62828;
-            border: 1px solid #ffcdd2;
-            display: block;
+            color: var(--color-error);
+            border-left-color: var(--color-error);
         }
 
         .message.loading {
             background: #e3f2fd;
-            color: #1565c0;
-            border: 1px solid #bbdefb;
+            color: var(--color-info);
+            border-left-color: var(--color-info);
+        }
+
+        .message.show {
             display: block;
         }
 
@@ -257,31 +403,73 @@
             display: inline-block;
             width: 14px;
             height: 14px;
-            border: 2px solid #1565c0;
-            border-top-color: transparent;
+            border: 2px solid rgba(21, 101, 192, 0.3);
+            border-top-color: var(--color-info);
             border-radius: 50%;
-            animation: spin 0.6s linear infinite;
+            animation: spin 0.8s linear infinite;
             margin-right: 8px;
+            vertical-align: middle;
         }
 
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
 
-        .bloco-numero {
-            color: #218091;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
+        .exemplo {
+            background: var(--color-bg-light);
+            border-left: 3px solid var(--color-primary);
+            padding: 12px;
+            border-radius: 4px;
+            margin-top: 8px;
+            font-size: 13px;
+            color: var(--color-text-light);
+            line-height: 1.6;
+        }
+
+        .exemplo strong {
+            color: var(--color-text-dark);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        @media (max-width: 600px) {
+            .header {
+                padding: 30px 20px;
+            }
+
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .content {
+                padding: 25px 20px;
+            }
+
+            .bloco h2 {
+                font-size: 20px;
+            }
+
+            .buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            button {
+                padding: 12px 20px;
+            }
+
+            .tooltip .tooltip-text {
+                width: 200px;
+                font-size: 11px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>📋 Briefing de Marca</h1>
-            <p>Para Advogados e Escritórios de Advocacia</p>
+            <h1>📋 Vamos criar sua marca</h1>
+            <p>Responda as perguntas abaixo com atenção. Isso nos ajudará a entender exatamente o que você precisa.</p>
         </div>
 
         <div class="progress-bar">
@@ -291,334 +479,477 @@
         <div class="content">
             <div id="messageContainer" class="message"></div>
 
-            <!-- BLOCO 1: Dados Gerais -->
+            <!-- BLOCO 1 -->
             <div class="bloco active" data-bloco="1">
-                <div class="bloco-numero">Bloco 1 de 12</div>
-                <h2>Dados Gerais</h2>
+                <div class="bloco-numero">Etapa 1 de 12</div>
+                <h2>Quem é você?</h2>
+                <p class="bloco-descricao">Vamos começar conhecendo você e seu escritório</p>
 
                 <div class="form-group">
-                    <label for="nomeEscritorio">Nome do Escritório ou Advogado *</label>
-                    <input type="text" id="nomeEscritorio" name="nomeEscritorio" required>
+                    <label>
+                        Nome do escritório ou advogado
+                        <span class="required">*</span>
+                        <span class="tooltip">
+                            <span class="info-icon">i</span>
+                            <span class="tooltip-text">Como você gostaria de ser chamado? Ex: "Silva Advocacia", "Dr. João Silva", etc.</span>
+                        </span>
+                    </label>
+                    <input type="text" id="nomeEscritorio" name="nomeEscritorio" placeholder="Ex: Silva & Pereira Advocacia" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="contato">E-mail ou WhatsApp para contato *</label>
-                    <input type="text" id="contato" name="contato" required>
+                    <label>
+                        Seu e-mail para contato
+                        <span class="required">*</span>
+                    </label>
+                    <input type="email" id="contato" name="contato" placeholder="seu@email.com" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="cidade">Cidade e Estado</label>
-                    <input type="text" id="cidade" name="cidade">
+                    <label>Cidade e Estado</label>
+                    <input type="text" id="cidade" name="cidade" placeholder="Ex: São Paulo, SP">
                 </div>
 
                 <div class="buttons">
                     <button class="btn-anterior" onclick="mudarBloco(-1)" disabled>← Anterior</button>
-                    <button class="btn-proximo" onclick="mudarBloco(1)">Próximo →</button>
+                    <button class="btn-proximo" onclick="validarEAvancar(1)">Próximo →</button>
                 </div>
             </div>
 
-            <!-- BLOCO 2: Sobre o Escritório -->
+            <!-- BLOCO 2 -->
             <div class="bloco" data-bloco="2">
-                <div class="bloco-numero">Bloco 2 de 12</div>
-                <h2>Sobre o Escritório</h2>
+                <div class="bloco-numero">Etapa 2 de 12</div>
+                <h2>O que você faz?</h2>
+                <p class="bloco-descricao">Entenda como você trabalha e o que oferece</p>
 
                 <div class="form-group">
-                    <label for="descricao">Descreva o escritório em poucas frases *</label>
-                    <textarea id="descricao" name="descricao" required></textarea>
+                    <label>
+                        Como você descreve seu dia a dia de trabalho?
+                        <span class="required">*</span>
+                        <span class="tooltip">
+                            <span class="info-icon">i</span>
+                            <span class="tooltip-text">Descreva o tipo de trabalho que você faz, como você atua e qual é seu processo.</span>
+                        </span>
+                    </label>
+                    <textarea id="descricao" name="descricao" placeholder="Exemplo: Atuo com defesa de pessoas em processos, dou consultoria jurídica, etc." required></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label for="historia">Como surgiu o escritório?</label>
-                    <textarea id="historia" name="historia"></textarea>
+                    <label>
+                        Como surgiu seu escritório?
+                        <span class="tooltip">
+                            <span class="info-icon">i</span>
+                            <span class="tooltip-text">A história ajuda a criar uma marca com propósito e autenticidade.</span>
+                        </span>
+                    </label>
+                    <textarea id="historia" name="historia" placeholder="Conte um pouco sobre como começou..."></textarea>
                 </div>
 
                 <div class="buttons">
                     <button class="btn-anterior" onclick="mudarBloco(-1)">← Anterior</button>
-                    <button class="btn-proximo" onclick="mudarBloco(1)">Próximo →</button>
+                    <button class="btn-proximo" onclick="validarEAvancar(2)">Próximo →</button>
                 </div>
             </div>
 
-            <!-- BLOCO 3: Missão e Valores -->
+            <!-- BLOCO 3 -->
             <div class="bloco" data-bloco="3">
-                <div class="bloco-numero">Bloco 3 de 12</div>
-                <h2>Missão e Valores</h2>
+                <div class="bloco-numero">Etapa 3 de 12</div>
+                <h2>Por que você é diferente?</h2>
+                <p class="bloco-descricao">O que faz seu escritório especial</p>
 
                 <div class="form-group">
-                    <label for="missao">Qual é a missão do escritório?</label>
-                    <textarea id="missao" name="missao"></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="valores">Quais são os principais valores?</label>
-                    <textarea id="valores" name="valores"></textarea>
+                    <label>
+                        Por que um cliente deveria escolher você em vez de outro advogado?
+                        <span class="required">*</span>
+                        <span class="tooltip">
+                            <span class="info-icon">i</span>
+                            <span class="tooltip-text">Pode ser: experiência, preço, forma de atender, resultados, disponibilidade, etc.</span>
+                        </span>
+                    </label>
+                    <textarea id="diferencial" name="diferencial" placeholder="Ex: Tenho 15 anos de experiência, atendo pessoalmente cada cliente, respostas rápidas..." required></textarea>
                 </div>
 
                 <div class="buttons">
                     <button class="btn-anterior" onclick="mudarBloco(-1)">← Anterior</button>
-                    <button class="btn-proximo" onclick="mudarBloco(1)">Próximo →</button>
+                    <button class="btn-proximo" onclick="validarEAvancar(3)">Próximo →</button>
                 </div>
             </div>
 
-            <!-- BLOCO 4: Diferencial -->
+            <!-- BLOCO 4 -->
             <div class="bloco" data-bloco="4">
-                <div class="bloco-numero">Bloco 4 de 12</div>
-                <h2>Diferencial</h2>
+                <div class="bloco-numero">Etapa 4 de 12</div>
+                <h2>Que tipo de trabalho você cuida?</h2>
+                <p class="bloco-descricao">Quais são suas áreas principais</p>
 
                 <div class="form-group">
-                    <label for="diferencial">O que diferencia o seu escritório de outros? *</label>
-                    <textarea id="diferencial" name="diferencial" required></textarea>
-                </div>
-
-                <div class="buttons">
-                    <button class="btn-anterior" onclick="mudarBloco(-1)">← Anterior</button>
-                    <button class="btn-proximo" onclick="mudarBloco(1)">Próximo →</button>
-                </div>
-            </div>
-
-            <!-- BLOCO 5: Áreas de Atuação -->
-            <div class="bloco" data-bloco="5">
-                <div class="bloco-numero">Bloco 5 de 12</div>
-                <h2>Áreas de Atuação</h2>
-
-                <div class="form-group">
-                    <label>Principais áreas de atuação *</label>
+                    <label>
+                        Áreas em que você trabalha
+                        <span class="required">*</span>
+                    </label>
                     <div class="checkbox-group">
-                        <label><input type="checkbox" name="areas" value="Civil"> Direito Civil</label>
-                        <label><input type="checkbox" name="areas" value="Trabalhista"> Direito Trabalhista</label>
-                        <label><input type="checkbox" name="areas" value="Empresarial"> Direito Empresarial</label>
-                        <label><input type="checkbox" name="areas" value="Tributario"> Direito Tributário</label>
-                        <label><input type="checkbox" name="areas" value="Familia"> Direito de Família</label>
-                        <label><input type="checkbox" name="areas" value="Penal"> Direito Penal</label>
-                        <label><input type="checkbox" name="areas" value="Consumidor"> Direito do Consumidor</label>
+                        <label><input type="checkbox" name="areas" value="Direito Civil"> Direito Civil (contratos, cobranças, imóveis)</label>
+                        <label><input type="checkbox" name="areas" value="Direito Trabalhista"> Direito Trabalhista (demissões, benefícios)</label>
+                        <label><input type="checkbox" name="areas" value="Direito Empresarial"> Direito Empresarial (constituição de empresa, contratos)</label>
+                        <label><input type="checkbox" name="areas" value="Direito Tributário"> Direito Tributário (impostos, deduções)</label>
+                        <label><input type="checkbox" name="areas" value="Direito de Família"> Direito de Família (separação, guarda, herança)</label>
+                        <label><input type="checkbox" name="areas" value="Direito Penal"> Direito Penal (defesa criminal)</label>
+                        <label><input type="checkbox" name="areas" value="Direito do Consumidor"> Direito do Consumidor (produtos e serviços defeitosos)</label>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>O escritório atende principalmente *</label>
+                    <label>
+                        Você atende principalmente
+                        <span class="required">*</span>
+                    </label>
                     <div class="radio-group">
-                        <label><input type="radio" name="tipoCliente" value="Pessoa Física"> Pessoas Físicas</label>
-                        <label><input type="radio" name="tipoCliente" value="Pessoa Juridica"> Pessoas Jurídicas</label>
+                        <label><input type="radio" name="tipoCliente" value="Pessoa Física"> Pessoa comum (indivíduos)</label>
+                        <label><input type="radio" name="tipoCliente" value="Pessoa Jurídica"> Empresas e negócios</label>
                         <label><input type="radio" name="tipoCliente" value="Ambos"> Ambos</label>
                     </div>
                 </div>
 
                 <div class="buttons">
                     <button class="btn-anterior" onclick="mudarBloco(-1)">← Anterior</button>
-                    <button class="btn-proximo" onclick="mudarBloco(1)">Próximo →</button>
+                    <button class="btn-proximo" onclick="validarEAvancar(4)">Próximo →</button>
                 </div>
             </div>
 
-            <!-- BLOCO 6: Público-alvo -->
-            <div class="bloco" data-bloco="6">
-                <div class="bloco-numero">Bloco 6 de 12</div>
-                <h2>Público-alvo</h2>
+            <!-- BLOCO 5 -->
+            <div class="bloco" data-bloco="5">
+                <div class="bloco-numero">Etapa 5 de 12</div>
+                <h2>Quem você quer atender?</h2>
+                <p class="bloco-descricao">Seu cliente ideal</p>
 
                 <div class="form-group">
-                    <label for="clienteIdeal">Quem é o cliente ideal? Descreva o perfil *</label>
-                    <textarea id="clienteIdeal" name="clienteIdeal" required></textarea>
+                    <label>
+                        Descreva seu cliente ideal
+                        <span class="required">*</span>
+                        <span class="tooltip">
+                            <span class="info-icon">i</span>
+                            <span class="tooltip-text">Quem é a pessoa que você QUER atender? Idade, profissão, situação financeira, problemas específicos?</span>
+                        </span>
+                    </label>
+                    <textarea id="clienteIdeal" name="clienteIdeal" placeholder="Ex: Empresários de 35-55 anos com negócios em crescimento, que precisam de orientação jurídica contínua..." required></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label for="regiao">Em quais regiões/cidades os clientes se concentram?</label>
-                    <input type="text" id="regiao" name="regiao">
+                    <label>Essas pessoas estão em qual região?</label>
+                    <input type="text" id="regiao" name="regiao" placeholder="Ex: São Paulo capital, Vale do Paraíba">
                 </div>
 
                 <div class="buttons">
                     <button class="btn-anterior" onclick="mudarBloco(-1)">← Anterior</button>
-                    <button class="btn-proximo" onclick="mudarBloco(1)">Próximo →</button>
+                    <button class="btn-proximo" onclick="validarEAvancar(5)">Próximo →</button>
                 </div>
             </div>
 
-            <!-- BLOCO 7: Personalidade -->
-            <div class="bloco" data-bloco="7">
-                <div class="bloco-numero">Bloco 7 de 12</div>
-                <h2>Personalidade da Marca</h2>
+            <!-- BLOCO 6 -->
+            <div class="bloco" data-bloco="6">
+                <div class="bloco-numero">Etapa 6 de 12</div>
+                <h2>Qual é a primeira impressão?</h2>
+                <p class="bloco-descricao">Como você quer ser percebido</p>
 
                 <div class="form-group">
-                    <label>Escolha até 5 palavras para descrever a marca *</label>
-                    <div class="checkbox-group">
-                        <label><input type="checkbox" name="palavras" value="Sofisticada"> Sofisticada</label>
-                        <label><input type="checkbox" name="palavras" value="Acessivel"> Acessível</label>
-                        <label><input type="checkbox" name="palavras" value="Moderna"> Moderna</label>
-                        <label><input type="checkbox" name="palavras" value="Tradicional"> Tradicional</label>
-                        <label><input type="checkbox" name="palavras" value="Inovadora"> Inovadora</label>
-                        <label><input type="checkbox" name="palavras" value="Autoridade"> Autoridade</label>
-                        <label><input type="checkbox" name="palavras" value="Humana"> Humana</label>
+                    <label>
+                        Quando alguém entra em seu escritório ou acessa seu site, qual sensação você quer transmitir?
+                        <span class="required">*</span>
+                        <span class="tooltip">
+                            <span class="info-icon">i</span>
+                            <span class="tooltip-text">É a impressão imediata: confiança, profissionalismo, inovação, acessibilidade, etc.</span>
+                        </span>
+                    </label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="sensacao" value="Tradicional e Formal"> Muito formal, sério e tradicional (como um banco)</label>
+                        <label><input type="radio" name="sensacao" value="Profissional Equilibrado"> Profissional mas acessível</label>
+                        <label><input type="radio" name="sensacao" value="Moderno e Inovador"> Moderno, inovador e tech-savvy</label>
+                        <label><input type="radio" name="sensacao" value="Amigável e Proximo"> Amigável, próximo e humano</label>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>Formalidade (1 = Informal | 5 = Muito Formal) *</label>
+                    <label>
+                        Nível de formalidade desejado
+                        <span class="required">*</span>
+                        <span class="tooltip">
+                            <span class="info-icon">i</span>
+                            <span class="tooltip-text">1 = Bem informal e casual | 5 = Muito formal e corporativo</span>
+                        </span>
+                    </label>
                     <div class="scale-group">
-                        <span class="scale-label">1</span>
+                        <span class="scale-label">Casual</span>
                         <input type="radio" name="formalidade" value="1" required>
                         <input type="radio" name="formalidade" value="2" required>
                         <input type="radio" name="formalidade" value="3" required>
                         <input type="radio" name="formalidade" value="4" required>
                         <input type="radio" name="formalidade" value="5" required>
-                        <span class="scale-label">5</span>
+                        <span class="scale-label">Formal</span>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>Modernidade (1 = Clássica | 5 = Muito Moderna) *</label>
+                    <label>
+                        Nível de modernidade desejado
+                        <span class="required">*</span>
+                        <span class="tooltip">
+                            <span class="info-icon">i</span>
+                            <span class="tooltip-text">1 = Bem clássico e tradicional | 5 = Bem moderno e atual</span>
+                        </span>
+                    </label>
                     <div class="scale-group">
-                        <span class="scale-label">1</span>
+                        <span class="scale-label">Clássico</span>
                         <input type="radio" name="modernidade" value="1" required>
                         <input type="radio" name="modernidade" value="2" required>
                         <input type="radio" name="modernidade" value="3" required>
                         <input type="radio" name="modernidade" value="4" required>
                         <input type="radio" name="modernidade" value="5" required>
-                        <span class="scale-label">5</span>
+                        <span class="scale-label">Moderno</span>
                     </div>
                 </div>
 
                 <div class="buttons">
                     <button class="btn-anterior" onclick="mudarBloco(-1)">← Anterior</button>
-                    <button class="btn-proximo" onclick="mudarBloco(1)">Próximo →</button>
+                    <button class="btn-proximo" onclick="validarEAvancar(6)">Próximo →</button>
                 </div>
             </div>
 
-            <!-- BLOCO 8: Referências Visuais -->
+            <!-- BLOCO 7 -->
+            <div class="bloco" data-bloco="7">
+                <div class="bloco-numero">Etapa 7 de 12</div>
+                <h2>Como sua logo deve parecer?</h2>
+                <p class="bloco-descricao">O estilo visual do seu logo</p>
+
+                <div class="form-group">
+                    <label>
+                        Você prefere uma logo com um desenho/ícone ou apenas o nome do seu escritório em letras bonitas?
+                        <span class="required">*</span>
+                        <span class="tooltip">
+                            <span class="info-icon">i</span>
+                            <span class="tooltip-text">Com desenho: balança, escudo, inicial em círculo, etc. | Só letras: nome elegante, monograma, iniciais.</span>
+                        </span>
+                    </label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="tipo" value="Com Desenho/Icone" required> Com um desenho ou ícone representativo</label>
+                        <label><input type="radio" name="tipo" value="So Letras/Tipografia" required> Apenas o nome em letras bonitas (tipografia)</label>
+                        <label><input type="radio" name="tipo" value="Combinacao" required> Combinação dos dois</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        Qual estilo visual você prefere?
+                        <span class="required">*</span>
+                        <span class="tooltip">
+                            <span class="info-icon">i</span>
+                            <span class="tooltip-text">Clássico: aparência tradicional, como bancos antigos | Moderno: limpo, simples, contemporâneo</span>
+                        </span>
+                    </label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="estilo" value="Classico" required> Clássico e tradicional (brasões, ornamentos)</label>
+                        <label><input type="radio" name="estilo" value="Moderno" required> Moderno e limpo (simples, minimalista)</label>
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn-anterior" onclick="mudarBloco(-1)">← Anterior</button>
+                    <button class="btn-proximo" onclick="validarEAvancar(7)">Próximo →</button>
+                </div>
+            </div>
+
+            <!-- BLOCO 8 -->
             <div class="bloco" data-bloco="8">
-                <div class="bloco-numero">Bloco 8 de 12</div>
-                <h2>Diretrizes Visuais</h2>
+                <div class="bloco-numero">Etapa 8 de 12</div>
+                <h2>Cores e tipos de letra</h2>
+                <p class="bloco-descricao">Detalhes visuais importantes</p>
 
                 <div class="form-group">
-                    <label>Qual estilo de marca você prefere? *</label>
+                    <label>
+                        Qual tipo de letra você prefere?
+                        <span class="required">*</span>
+                        <span class="tooltip">
+                            <span class="info-icon">i</span>
+                            <span class="tooltip-text">Com serifas: letras antiga (Times) | Sem serifas: letras modernas (Arial) | Combinação: o melhor dos dois mundos</span>
+                        </span>
+                    </label>
                     <div class="radio-group">
-                        <label><input type="radio" name="estilo" value="Classica" required> Clássica (brasões, iniciais, serifas)</label>
-                        <label><input type="radio" name="estilo" value="Contemporanea" required> Contemporânea (clean, minimalista)</label>
-                        <label><input type="radio" name="estilo" value="Indiferente" required> Indiferente</label>
+                        <label><input type="radio" name="tipografia" value="Com Serifas" required> Com serifas - Letras tradiccionais e clássicas</label>
+                        <label><input type="radio" name="tipografia" value="Sem Serifas" required> Sem serifas - Letras modernas e limpas</label>
+                        <label><input type="radio" name="tipografia" value="Combinacao" required> Combinação - O melhor dos dois</label>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>Prefere marca simbólica ou tipográfica? *</label>
-                    <div class="radio-group">
-                        <label><input type="radio" name="tipo" value="Simbolica" required> Simbólica (com ícone)</label>
-                        <label><input type="radio" name="tipo" value="Tipografica" required> Tipográfica (apenas letras)</label>
-                        <label><input type="radio" name="tipo" value="Combinacao" required> Combinação</label>
+                    <label>
+                        Quais cores você imagina para seu escritório?
+                        <span class="tooltip">
+                            <span class="info-icon">i</span>
+                            <span class="tooltip-text">Pense nas cores que você vê em escritórios que você admira ou que representem seu negócio.</span>
+                        </span>
+                    </label>
+                    <textarea id="paletaCores" name="paletaCores" placeholder="Ex: Azul marinho, cinza, ouro | Ou: Verde escuro com branco | Ou: Vinho e dourado"></textarea>
+                    <div class="exemplo">
+                        <strong>Exemplos:</strong>
+                        • Advogados tradicionais: Azul marinho, preto, cinza
+                        <br>• Moderno e inovador: Azul teal, branco, cinza
+                        <br>• Premium/Luxury: Vinho, dourado, creme
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="elementosEvitar">Elementos a evitar</label>
-                    <textarea id="elementosEvitar" name="elementosEvitar" placeholder="Ex: balança, martelo, coluna grega..."></textarea>
+                    <label>
+                        Cores que você NÃO quer usar?
+                        <span class="tooltip">
+                            <span class="info-icon">i</span>
+                            <span class="tooltip-text">Cores que vocee não gosta ou que não representam bem seu negócio.</span>
+                        </span>
+                    </label>
+                    <input type="text" id="coresEvitar" name="coresEvitar" placeholder="Ex: Muito colorido, cores vibrantes, rosa, laranja...">
                 </div>
 
                 <div class="buttons">
                     <button class="btn-anterior" onclick="mudarBloco(-1)">← Anterior</button>
-                    <button class="btn-proximo" onclick="mudarBloco(1)">Próximo →</button>
+                    <button class="btn-proximo" onclick="validarEAvancar(8)">Próximo →</button>
                 </div>
             </div>
 
-            <!-- BLOCO 9: Cores -->
+            <!-- BLOCO 9 -->
             <div class="bloco" data-bloco="9">
-                <div class="bloco-numero">Bloco 9 de 12</div>
-                <h2>Cores e Tipografia</h2>
+                <div class="bloco-numero">Etapa 9 de 12</div>
+                <h2>Onde sua marca vai aparecer?</h2>
+                <p class="bloco-descricao">Aplicações do logo e materiais</p>
 
                 <div class="form-group">
-                    <label>Preferência de tipografia *</label>
-                    <div class="radio-group">
-                        <label><input type="radio" name="tipografia" value="Serifa" required> Com Serifa (clássicas)</label>
-                        <label><input type="radio" name="tipografia" value="SemSerifa" required> Sem Serifa (modernas)</label>
-                        <label><input type="radio" name="tipografia" value="Combinacao" required> Combinação</label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="paletaCores">Sugestão de paleta de cores</label>
-                    <textarea id="paletaCores" name="paletaCores" placeholder="Ex: azul marinho, verde escuro, vinho, dourado..."></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="coresEvitar">Cores que devem ser evitadas</label>
-                    <textarea id="coresEvitar" name="coresEvitar"></textarea>
-                </div>
-
-                <div class="buttons">
-                    <button class="btn-anterior" onclick="mudarBloco(-1)">← Anterior</button>
-                    <button class="btn-proximo" onclick="mudarBloco(1)">Próximo →</button>
-                </div>
-            </div>
-
-            <!-- BLOCO 10: Referências -->
-            <div class="bloco" data-bloco="10">
-                <div class="bloco-numero">Bloco 10 de 12</div>
-                <h2>Referências e Concorrentes</h2>
-
-                <div class="form-group">
-                    <label for="referenciasPositivas">Cite escritórios que você admira e por quê</label>
-                    <textarea id="referenciasPositivas" name="referenciasPositivas"></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="logosMarcas">Links ou descrição de logos/marcas que gosta</label>
-                    <textarea id="logosMarcas" name="logosMarcas"></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="logosNaoGosta">Logos que não gosta e por quê</label>
-                    <textarea id="logosNaoGosta" name="logosNaoGosta"></textarea>
-                </div>
-
-                <div class="buttons">
-                    <button class="btn-anterior" onclick="mudarBloco(-1)">← Anterior</button>
-                    <button class="btn-proximo" onclick="mudarBloco(1)">Próximo →</button>
-                </div>
-            </div>
-
-            <!-- BLOCO 11: Aplicações -->
-            <div class="bloco" data-bloco="11">
-                <div class="bloco-numero">Bloco 11 de 12</div>
-                <h2>Aplicações e Prazos</h2>
-
-                <div class="form-group">
-                    <label>Onde a marca será mais usada? *</label>
+                    <label>
+                        Em quais lugares você precisará da logo e do material visual?
+                        <span class="required">*</span>
+                    </label>
                     <div class="checkbox-group">
-                        <label><input type="checkbox" name="aplicacoes" value="CartaoVisita" required> Cartão de Visita</label>
-                        <label><input type="checkbox" name="aplicacoes" value="PapelTimbrado" required> Papel Timbrado</label>
-                        <label><input type="checkbox" name="aplicacoes" value="Site" required> Site</label>
-                        <label><input type="checkbox" name="aplicacoes" value="RedesSociais" required> Redes Sociais</label>
-                        <label><input type="checkbox" name="aplicacoes" value="PlacaFachada" required> Placa de Fachada</label>
-                        <label><input type="checkbox" name="aplicacoes" value="Apresentacoes" required> Apresentações</label>
+                        <label><input type="checkbox" name="aplicacoes" value="Cartao de Visita"> Cartão de visita</label>
+                        <label><input type="checkbox" name="aplicacoes" value="Papel Timbrado"> Papel timbrado e envelopes</label>
+                        <label><input type="checkbox" name="aplicacoes" value="Site"> Website/site</label>
+                        <label><input type="checkbox" name="aplicacoes" value="Redes Sociais"> Redes sociais (Instagram, LinkedIn, Facebook)</label>
+                        <label><input type="checkbox" name="aplicacoes" value="Placa Fachada"> Placa de fachada do escritório</label>
+                        <label><input type="checkbox" name="aplicacoes" value="Apresentacoes"> Apresentações, propostas, relatórios</label>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="prazo">Qual é o prazo desejado para a marca? *</label>
-                    <input type="text" id="prazo" name="prazo" placeholder="Ex: 15 dias, 1 mês..." required>
+                    <label>
+                        Qual é o prazo para ter tudo pronto?
+                        <span class="required">*</span>
+                        <span class="tooltip">
+                            <span class="info-icon">i</span>
+                            <span class="tooltip-text">Quando você precisa da marca finalizada? Dias, semanas ou meses?</span>
+                        </span>
+                    </label>
+                    <input type="text" id="prazo" name="prazo" placeholder="Ex: 15 dias, 1 mês, 2 semanas..." required>
                 </div>
 
                 <div class="form-group">
-                    <label for="aprovacao">Quem será responsável pela aprovação final? *</label>
-                    <input type="text" id="aprovacao" name="aprovacao" required>
+                    <label>
+                        Quem vai decidir se a marca fica pronta?
+                        <span class="required">*</span>
+                        <span class="tooltip">
+                            <span class="info-icon">i</span>
+                            <span class="tooltip-text">Você mesmo, um sócio, um gerente? Isso é importante para organizar as aprovações.</span>
+                        </span>
+                    </label>
+                    <input type="text" id="aprovacao" name="aprovacao" placeholder="Ex: Eu mesmo, meu sócio, meu gerente..." required>
                 </div>
 
                 <div class="buttons">
                     <button class="btn-anterior" onclick="mudarBloco(-1)">← Anterior</button>
-                    <button class="btn-proximo" onclick="mudarBloco(1)">Próximo →</button>
+                    <button class="btn-proximo" onclick="validarEAvancar(9)">Próximo →</button>
                 </div>
             </div>
 
-            <!-- BLOCO 12: Finalização -->
-            <div class="bloco" data-bloco="12">
-                <div class="bloco-numero">Bloco 12 de 12</div>
-                <h2>Finalização</h2>
+            <!-- BLOCO 10 -->
+            <div class="bloco" data-bloco="10">
+                <div class="bloco-numero">Etapa 10 de 12</div>
+                <h2>Inspirações e referências</h2>
+                <p class="bloco-descricao">Que você admira e gostaria como inspiração</p>
 
                 <div class="form-group">
-                    <label for="adicional">Alguma informação adicional?</label>
-                    <textarea id="adicional" name="adicional" placeholder="Deixe qualquer outro comentário importante..."></textarea>
+                    <label>
+                        Tem algum escritório de advocacia que você admira visualmente? Por que?
+                        <span class="tooltip">
+                            <span class="info-icon">i</span>
+                            <span class="tooltip-text">Pode ser local ou até internacional. O que você gosta neles?</span>
+                        </span>
+                    </label>
+                    <textarea id="referenciasPositivas" name="referenciasPositivas" placeholder="Ex: Silva Advogados porque é moderno, OAB porque é tradicional..."></textarea>
                 </div>
 
-                <div style="background: #e8f5e9; padding: 15px; border-radius: 6px; margin: 20px 0;">
-                    <p style="color: #2e7d32; font-size: 14px; margin: 0;">✓ Obrigado por preencher o briefing! Ao clicar em "Enviar", seus dados serão salvos em nossa planilha e entraremos em contato em breve.</p>
+                <div class="form-group">
+                    <label>Tem alguma empresa ou marca (de qualquer área) que você gosta visualmente?</label>
+                    <textarea id="logosMarcas" name="logosMarcas" placeholder="Ex: Apple porque é simples, Magazine Luiza porque é moderna..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Tem alguma marca que você NÃO gosta? Por que?</label>
+                    <textarea id="logosNaoGosta" name="logosNaoGosta" placeholder="Ex: Muitas cores, poluído, desatualizado..."></textarea>
                 </div>
 
                 <div class="buttons">
                     <button class="btn-anterior" onclick="mudarBloco(-1)">← Anterior</button>
-                    <button class="btn-enviar" onclick="enviarFormulario()">✓ Enviar Briefing</button>
+                    <button class="btn-proximo" onclick="validarEAvancar(10)">Próximo →</button>
+                </div>
+            </div>
+
+            <!-- BLOCO 11 -->
+            <div class="bloco" data-bloco="11">
+                <div class="bloco-numero">Etapa 11 de 12</div>
+                <h2>Elementos visuais</h2>
+                <p class="bloco-descricao">O que você quer (ou não) na sua logo</p>
+
+                <div class="form-group">
+                    <label>
+                        Que elementos visuais você gostaria de evitar?
+                        <span class="tooltip">
+                            <span class="info-icon">i</span>
+                            <span class="tooltip-text">Balança, martelo, coluna grega, tocha, livro aberto, etc. Elementos que você não quer.</span>
+                        </span>
+                    </label>
+                    <textarea id="elementosEvitar" name="elementosEvitar" placeholder="Ex: Não quero balança nem martelo. Não gosto de colunas gregas..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        Tem algum elemento que você gostaria de incluir?
+                        <span class="tooltip">
+                            <span class="info-icon">i</span>
+                            <span class="tooltip-text">Monograma (iniciais), escudo, âncora, algo relacionado à sua cidade, etc.</span>
+                        </span>
+                    </label>
+                    <textarea id="elementosInteressantes" name="elementosInteressantes" placeholder="Ex: Gostaria de um escudo, ou o símbolo da minha cidade..."></textarea>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn-anterior" onclick="mudarBloco(-1)">← Anterior</button>
+                    <button class="btn-proximo" onclick="validarEAvancar(11)">Próximo →</button>
+                </div>
+            </div>
+
+            <!-- BLOCO 12 -->
+            <div class="bloco" data-bloco="12">
+                <div class="bloco-numero">Etapa 12 de 12 - Final</div>
+                <h2>Obrigado! 🎉</h2>
+                <p class="bloco-descricao">Você está quase terminando</p>
+
+                <div class="form-group">
+                    <label>Tem mais alguma informação importante que gostaria de adicionar?</label>
+                    <textarea id="adicional" name="adicional" placeholder="Deixe aqui qualquer detalhe que você ache importante..."></textarea>
+                </div>
+
+                <div style="background: #e8f5e9; border-left: 4px solid var(--color-success); padding: 16px; border-radius: 8px; margin: 30px 0;">
+                    <p style="color: var(--color-success); font-size: 14px; margin: 0; line-height: 1.6;">
+                        ✓ <strong>Muito obrigado!</strong> Você respondeu todas as perguntas com atenção. Ao clicar em "Enviar Briefing", seus dados serão salvos de forma segura. Em breve, nossa equipe de design entrará em contato para os próximos passos.
+                    </p>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn-anterior" onclick="mudarBloco(-1)">← Anterior</button>
+                    <button class="btn-enviar" onclick="enviarFormulario()" style="background: var(--color-success);">✓ Enviar Briefing</button>
                 </div>
             </div>
         </div>
@@ -628,23 +959,64 @@
         let blocoAtual = 1;
         const sheetUrl = 'https://script.google.com/macros/s/AKfycbxJMPcEBGa5RB54EQuTpZGDyxaPxhnGrz2_YcZeG6L7ULlml8I5y00J_Q6zKVqUXpvuAA/exec';
 
+        const camposObrigatorios = {
+            1: ['nomeEscritorio', 'contato'],
+            2: ['descricao'],
+            3: ['diferencial'],
+            4: ['areas', 'tipoCliente'],
+            5: ['clienteIdeal'],
+            6: ['sensacao', 'formalidade', 'modernidade'],
+            7: ['tipo', 'estilo'],
+            8: ['tipografia'],
+            9: ['aplicacoes', 'prazo', 'aprovacao'],
+            10: [],
+            11: [],
+            12: []
+        };
+
+        function validarCamposBloco(bloco) {
+            const campos = camposObrigatorios[bloco] || [];
+            
+            for (let campo of campos) {
+                const elementos = document.querySelectorAll(`[name="${campo}"]`);
+                
+                if (elementos.length === 0) continue;
+
+                const tipo = elementos[0].type;
+
+                if (tipo === 'checkbox') {
+                    const algumChecked = Array.from(elementos).some(el => el.checked);
+                    if (!algumChecked) return false;
+                } else if (tipo === 'radio') {
+                    const algumChecked = Array.from(elementos).some(el => el.checked);
+                    if (!algumChecked) return false;
+                } else if (tipo === 'text' || tipo === 'email' || tipo === 'textarea') {
+                    const el = document.getElementById(campo);
+                    if (!el || !el.value.trim()) return false;
+                }
+            }
+            return true;
+        }
+
+        function validarEAvancar(blocoAtual) {
+            if (validarCamposBloco(blocoAtual)) {
+                mudarBloco(1);
+            } else {
+                mostrarMensagem('⚠️ Por favor, preencha todos os campos obrigatórios (*) antes de continuar.', 'error');
+            }
+        }
+
         function mudarBloco(direcao) {
             const totalBlocos = 12;
             const novoBloco = blocoAtual + direcao;
 
             if (novoBloco >= 1 && novoBloco <= totalBlocos) {
-                // Esconder bloco atual
                 document.querySelector(`.bloco[data-bloco="${blocoAtual}"]`).classList.remove('active');
-
-                // Mostrar novo bloco
                 blocoAtual = novoBloco;
                 document.querySelector(`.bloco[data-bloco="${blocoAtual}"]`).classList.add('active');
-
-                // Atualizar barra de progresso
                 atualizarProgresso();
-
-                // Scroll para o topo
                 window.scrollTo(0, 0);
+                limparMensagem();
             }
         }
 
@@ -654,17 +1026,19 @@
         }
 
         function enviarFormulario() {
-            // Coletar dados
+            if (!validarCamposBloco(12)) {
+                mostrarMensagem('⚠️ Por favor, preencha todos os campos antes de enviar.', 'error');
+                return;
+            }
+
             const formData = {};
 
-            // Inputs de texto
             document.querySelectorAll('input[type="text"], input[type="email"], textarea').forEach(input => {
                 if (input.name) {
                     formData[input.name] = input.value;
                 }
             });
 
-            // Checkboxes
             document.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
                 if (!formData[checkbox.name]) {
                     formData[checkbox.name] = [];
@@ -674,21 +1048,12 @@
                 }
             });
 
-            // Radios
             document.querySelectorAll('input[type="radio"]:checked').forEach(radio => {
                 formData[radio.name] = radio.value;
             });
 
-            // Validar campos obrigatórios
-            if (!formData.nomeEscritorio || !formData.contato || !formData.descricao) {
-                mostrarMensagem('Por favor, preencha todos os campos obrigatórios.', 'error');
-                return;
-            }
+            mostrarMensagem('<span class="spinner"></span>Enviando seu briefing...', 'loading');
 
-            // Mostrar loading
-            mostrarMensagem('⏳ Enviando briefing...', 'loading');
-
-            // Enviar para Google Sheets
             fetch(sheetUrl, {
                 method: 'POST',
                 body: JSON.stringify(formData),
@@ -699,26 +1064,31 @@
             .then(response => response.json())
             .then(data => {
                 if (data.status === 'sucesso') {
-                    mostrarMensagem('✓ Briefing enviado com sucesso! Em breve entraremos em contato.', 'success');
+                    mostrarMensagem('✓ Seu briefing foi enviado com sucesso! Em breve nossa equipe entrará em contato.', 'success');
                     setTimeout(() => {
                         location.reload();
-                    }, 3000);
+                    }, 4000);
                 } else {
-                    mostrarMensagem('Erro ao enviar: ' + data.mensagem, 'error');
+                    mostrarMensagem('⚠️ Erro ao enviar. Tente novamente: ' + (data.mensagem || 'erro desconhecido'), 'error');
                 }
             })
             .catch(error => {
-                mostrarMensagem('Erro na comunicação: ' + error.message, 'error');
+                mostrarMensagem('⚠️ Erro na comunicação: ' + error.message, 'error');
             });
         }
 
         function mostrarMensagem(texto, tipo) {
             const container = document.getElementById('messageContainer');
-            container.textContent = texto;
-            container.className = `message ${tipo}`;
+            container.innerHTML = texto;
+            container.className = `message show ${tipo}`;
         }
 
-        // Inicializar
+        function limparMensagem() {
+            const container = document.getElementById('messageContainer');
+            container.className = 'message';
+            container.innerHTML = '';
+        }
+
         atualizarProgresso();
     </script>
 </body>
