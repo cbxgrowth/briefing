@@ -1,1 +1,1418 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Briefing - Identidade Visual</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f7fa;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            max-width: 750px;
+            width: 100%;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1a3a42 0%, #2d666e 100%);
+            color: white;
+            padding: 50px 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .header p {
+            font-size: 15px;
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+
+        .progress-container {
+            padding: 0 40px;
+            padding-top: 25px;
+            text-align: center;
+        }
+
+        .progress-text {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: #e8e8e8;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #218091, #2d666e);
+            width: 4.5%;
+            transition: width 0.4s ease;
+        }
+
+        .content {
+            padding: 40px;
+            min-height: 450px;
+        }
+
+        .bloco {
+            display: none;
+        }
+
+        .bloco.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .bloco-numero {
+            color: #218091;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .bloco h2 {
+            color: #1a3a42;
+            margin-bottom: 8px;
+            font-size: 26px;
+            font-weight: 600;
+        }
+
+        .bloco-descricao {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            color: #1a3a42;
+            font-weight: 500;
+            font-size: 15px;
+        }
+
+        .required {
+            color: #d32f2f;
+        }
+
+        .info-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #218091;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: help;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .info-icon:hover {
+            background-color: #1a6370;
+        }
+
+        .tooltip-box {
+            display: none;
+            position: absolute;
+            background: #1a3a42;
+            color: white;
+            padding: 8px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            line-height: 1.4;
+            width: 180px;
+            bottom: auto;
+            top: -130px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            white-space: normal;
+            font-weight: 400;
+        }
+
+        .tooltip-box::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 5px solid transparent;
+            border-top-color: #1a3a42;
+        }
+
+        .info-icon:hover .tooltip-box {
+            display: block;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            background-color: white;
+            transition: all 0.2s ease;
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group input[type="email"]:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #218091;
+            box-shadow: 0 0 0 3px rgba(33, 128, 145, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-group select {
+            cursor: pointer;
+        }
+
+        .helper-text {
+            font-size: 12px;
+            color: #999;
+            margin-top: 6px;
+        }
+
+        .exemplo {
+            background: #f0f8f9;
+            border-left: 3px solid #218091;
+            padding: 12px;
+            border-radius: 4px;
+            margin-top: 8px;
+            font-size: 13px;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        .checkbox-group,
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .checkbox-group label,
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            margin: 0;
+            cursor: pointer;
+            font-weight: 400;
+            color: #333;
+            padding: 8px;
+            border-radius: 6px;
+            transition: background-color 0.15s ease;
+            font-size: 14px;
+        }
+
+        .checkbox-group label:hover,
+        .radio-group label:hover {
+            background-color: #f5f5f5;
+        }
+
+        .checkbox-group input,
+        .radio-group input {
+            margin-right: 10px;
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+            accent-color: #218091;
+            flex-shrink: 0;
+        }
+
+        .scale-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 6px;
+            align-items: center;
+            margin-top: 12px;
+        }
+
+        .scale-label {
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+            flex: 0 0 32px;
+            font-weight: 500;
+        }
+
+        .scale-group input[type="radio"] {
+            margin: 0;
+            cursor: pointer;
+            flex: 1;
+            width: 100%;
+            height: 36px;
+            -webkit-appearance: none;
+            appearance: none;
+            background-color: #f5f5f5;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 6px;
+            transition: all 0.15s ease;
+        }
+
+        .scale-group input[type="radio"]:hover {
+            border-color: #218091;
+            background-color: #f0f8f9;
+        }
+
+        .scale-group input[type="radio"]:checked {
+            background-color: #218091;
+            border-color: #218091;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #e8e8e8;
+        }
+
+        button {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            flex: 1;
+        }
+
+        .btn-anterior {
+            background: #f5f5f5;
+            color: #333;
+            border: 1.5px solid #e0e0e0;
+        }
+
+        .btn-anterior:hover:not(:disabled) {
+            background: #e8e8e8;
+        }
+
+        .btn-proximo,
+        .btn-enviar {
+            background: #218091;
+            color: white;
+        }
+
+        .btn-proximo:hover:not(:disabled),
+        .btn-enviar:hover:not(:disabled) {
+            background: #1a6370;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(33, 128, 145, 0.25);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .message {
+            padding: 14px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            font-size: 14px;
+            border-left: 4px solid;
+        }
+
+        .message.success {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border-left-color: #2e7d32;
+        }
+
+        .message.error {
+            background: #ffebee;
+            color: #c62828;
+            border-left-color: #c62828;
+        }
+
+        .message.loading {
+            background: #e3f2fd;
+            color: #1565c0;
+            border-left-color: #1565c0;
+        }
+
+        .message.show {
+            display: block;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border: 2px solid rgba(21, 101, 192, 0.3);
+            border-top-color: #1565c0;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .success-box {
+            background: #e8f5e9;
+            border-left: 4px solid #2e7d32;
+            padding: 16px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+
+        .success-box p {
+            color: #2e7d32;
+            font-size: 14px;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 600px) {
+            .header {
+                padding: 35px 25px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .content {
+                padding: 25px;
+            }
+
+            .bloco h2 {
+                font-size: 22px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            button {
+                padding: 12px 20px;
+                font-size: 13px;
+            }
+
+            .tooltip-box {
+                width: 160px;
+                font-size: 11px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📋 Vamos criar sua identidade visual</h1>
+            <p>Responda com atenção. Quanto mais detalhes, melhor será sua marca, logo, cores e canais digitais.</p>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-text" id="progressText">Etapa 1 de 22</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div id="messageContainer" class="message"></div>
+
+            <!-- BLOCO 1: Tipo de Negócio -->
+            <div class="bloco active" data-bloco="1">
+                <div class="bloco-numero">Etapa 1 de 22</div>
+                <h2>Qual é seu segmento?</h2>
+                <p class="bloco-descricao">Isso nos ajuda a fazer perguntas mais específicas sobre seu negócio</p>
+
+                <div class="form-group">
+                    <label>
+                        Qual é o tipo do seu negócio?
+                        <span class="required">*</span>
+                    </label>
+                    <select id="tipoNegocio" name="tipoNegocio" required onchange="atualizarTipo()">
+                        <option value="">Selecione uma opção...</option>
+                        <option value="Restaurante/Café/Bar">Restaurante/Café/Bar/Padaria</option>
+                        <option value="E-commerce">E-commerce/Loja Online</option>
+                        <option value="Saúde/Wellness">Saúde e Wellness (salão, clínica, academia, spa)</option>
+                        <option value="Tecnologia">Tecnologia/SaaS/Startup</option>
+                        <option value="Consultoria">Consultoria/Serviços Profissionais</option>
+                        <option value="Varejo">Varejo/Loja Física</option>
+                        <option value="Imobiliária">Imobiliária</option>
+                        <option value="Educação">Educação/Cursos/Treinamento</option>
+                        <option value="Agência">Agência Criativa/Marketing/Design</option>
+                        <option value="Indústria">Indústria/Manufatura</option>
+                        <option value="Moda">Moda/Vestuário/Acessórios</option>
+                        <option value="Hotelaria">Hotelaria/Turismo/Hospedagem</option>
+                        <option value="Nonprofit">Nonprofit/ONG/Associação</option>
+                        <option value="Construção">Construção/Engenharia/Reforma</option>
+                        <option value="Outro">Outro</option>
+                    </select>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn-anterior" onclick="mudarBloco(-1)" disabled>← Anterior</button>
+                    <button class="btn-proximo" onclick="validarEAvancar(1)">Próximo →</button>
+                </div>
+            </div>
+
+            <!-- BLOCO 2: Informações Básicas -->
+            <div class="bloco" data-bloco="2">
+                <div class="bloco-numero">Etapa 2 de 22</div>
+                <h2>Informações Básicas</h2>
+                <p class="bloco-descricao">Começamos conhecendo você e seu negócio</p>
+
+                <div class="form-group">
+                    <label>
+                        Qual é o nome da sua empresa ou seu nome profissional?
+                        <span class="required">*</span>
+                        <div class="info-icon">
+                            i
+                            <div class="tooltip-box">Como você gostaria de ser chamado?</div>
+                        </div>
+                    </label>
+                    <input type="text" id="nomeEmpresa" name="nomeEmpresa" placeholder="Ex: Silva & Pereira Advocacia" required>
+                    <div class="helper-text">Este será o nome que aparecerá na sua logo e materiais</div>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        Qual o melhor contato para falarmos com você?
+                        <span class="required">*</span>
+                    </label>
+                    <input type="email" id="contato" name="contato" placeholder="seu@email.com" required>
+                    <div class="helper-text">E-mail ou WhatsApp onde nossa equipe pode tirar dúvidas</div>
+                </div>
+
+                <div class="form-group">
+                    <label>Cidade, Estado e País</label>
+                    <input type="text" id="cidade" name="cidade" placeholder="Ex: São Paulo, SP, Brasil">
+                </div>
+
+                <div class="buttons">
+                    <button class="btn-anterior" onclick="mudarBloco(-1)">← Anterior</button>
+                    <button class="btn-proximo" onclick="validarEAvancar(2)">Próximo →</button>
+                </div>
+            </div>
+
+            <!-- BLOCO 3: O que você faz -->
+            <div class="bloco" data-bloco="3">
+                <div class="bloco-numero">Etapa 3 de 22</div>
+                <h2>O que você faz?</h2>
+                <p class="bloco-descricao">Entenda como você trabalha e o que oferece</p>
+
+                <div class="form-group">
+                    <label>
+                        Como você descreve seu negócio em poucas frases?
+                        <span class="required">*</span>
+                        <div class="info-icon">
+                            i
+                            <div class="tooltip-box">Descreva o tipo de trabalho/produtos que você oferece</div>
+                        </div>
+                    </label>
+                    <textarea id="descricao" name="descricao" placeholder="Exemplo: Vendo roupas sustentáveis online..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        Como surgiu seu negócio?
+                        <div class="info-icon">
+                            i
+                            <div class="tooltip-box">A história ajuda a criar uma marca com propósito e autenticidade</div>
+                        </div>
+                    </label>
+                    <textarea id="historia" name="historia" placeholder="Conte um pouco sobre como começou..."></textarea>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn-anterior" onclick="mudarBloco(-1)">← Anterior</button>
+                    <button class="btn-proximo" onclick="validarEAvancar(3)">Próximo →</button>
+                </div>
+            </div>
+
+            <!-- BLOCO 4: Diferencial -->
+            <div class="bloco" data-bloco="4">
+                <div class="bloco-numero">Etapa 4 de 22</div>
+                <h2>Por que você é diferente?</h2>
+                <p class="bloco-descricao">O que faz seu negócio especial</p>
+
+                <div class="form-group">
+                    <label>
+                        Por que um cliente deveria escolher você?
+                        <span class="required">*</span>
+                        <div class="info-icon">
+                            i
+                            <div class="tooltip-box">Qualidade, preço, atendimento, inovação, experiência, etc</div>
+                        </div>
+                    </label>
+                    <textarea id="diferencial" name="diferencial" placeholder="Ex: Somos os mais rápidos, mais baratos, mais inovadores..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        Qual é a missão/propósito do seu negócio?
+                        <div class="info-icon">
+                            i
+                            <div class="tooltip-box">Por que seu negócio existe? Qual problema você resolve?</div>
+                        </div>
+                    </label>
+                    <textarea id="missao" name="missao" placeholder="Ex: Ajudar pessoas a viver melhor..."></textarea>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn-anterior" onclick="mudarBloco(-1)">← Anterior</button>
+                    <button class="btn-proximo" onclick="validarEAvancar(4)">Próximo →</button>
+                </div>
+            </div>
+
+            <!-- BLOCO 5: Público-alvo -->
+            <div class="bloco" data-bloco="5">
+                <div class="bloco-numero">Etapa 5 de 22</div>
+                <h2>Quem você quer atender?</h2>
+                <p class="bloco-descricao">Seu cliente ideal</p>
+
+                <div class="form-group">
+                    <label>
+                        Descreva seu cliente ideal
+                        <span class="required">*</span>
+                        <div class="info-icon">
+                            i
+                            <div class="tooltip-box">Idade, profissão, situação financeira, estilo de vida, interesses</div>
+                        </div>
+                    </label>
+                    <textarea id="clienteIdeal" name="clienteIdeal" placeholder="Ex: Mulheres 25-40 anos, profissionais urbanas..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        Qual é a faixa de renda/poder de compra do seu cliente?
+                        <span class="required">*</span>
+                    </label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="faixaRenda" value="Baixa renda/Econômico"> Baixa renda / Econômico</label>
+                        <label><input type="radio" name="faixaRenda" value="Renda média/Médio"> Renda média / Médio</label>
+                        <label><input type="radio" name="faixaRenda" value="Renda alta/Premium"> Renda alta / Premium</label>
+                        <label><input type="radio" name="faixaRenda" value="Misto"> Misto</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Essas pessoas estão em qual região?</label>
+                    <input type="text" id="regiao" name="regiao" placeholder="Ex: São Paulo capital, Brasil inteiro, internacional">
+                </div>
+
+                <div class="buttons">
+                    <button class="btn-anterior" onclick="mudarBloco(-1)">← Anterior</button>
+                    <button class="btn-proximo" onclick="validarEAvancar(5)">Próximo →</button>
+                </div>
+            </div>
+
+            <!-- BLOCO 6: Primeira Impressão -->
+            <div class="bloco" data-bloco="6">
+                <div class="bloco-numero">Etapa 6 de 22</div>
+                <h2>Qual é a primeira impressão?</h2>
+                <p class="bloco-descricao">Como você quer ser percebido</p>
+
+                <div class="form-group">
+                    <label>Qual sensação você quer que seu cliente tenha? <span class="required">*</span></label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="sensacao" value="Muito formal e corporativo"> Muito formal e corporativo</label>
+                        <label><input type="radio" name="sensacao" value="Profissional mas acessível"> Profissional mas acessível</label>
+                        <label><input type="radio" name="sensacao" value="Moderno e inovador"> Moderno e inovador</label>
+                        <label><input type="radio" name="sensacao" value="Amigável e próximo"> Amigável e próximo</label>
+                        <label><input type="radio" name="sensacao" value="Criativo e descontraído"> Criativo e descontraído</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Nível de formalidade desejado <span class="required">*</span></label>
+                    <div class="helper-text">1 = Bem informal e casual | 5 = Muito formal e corporativo</div>
+                    <div class="scale-group">
+                        <span class="scale-label">Casual</span>
+                        <input type="radio" name="formalidade" value="1" required>
+                        <input type="radio" name="formalidade" value="2" required>
+                        <input type="radio" name="formalidade" value="3" required>
+                        <input type="radio" name="formalidade" value="4" required>
+                        <input type="radio" name="formalidade" value="5" required>
+                        <span class="scale-label">Formal</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Nível de modernidade desejado <span class="required">*</span></label>
+                    <div class="helper-text">1 = Bem clássico e tradicional | 5 = Bem moderno e atualizado</div>
+                    <div class="scale-group">
+                        <span class="scale-label">Clássico</span>
+                        <input type="radio" name="modernidade" value="1" required>
+                        <input type="radio" name="modernidade" value="2" required>
+                        <input type="radio" name="modernidade" value="3" required>
+                        <input type="radio" name="modernidade" value="4" required>
+                        <input type="radio" name="modernidade" value="5" required>
+                        <span class="scale-label">Moderno</span>
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn-anterior" onclick="mudarBloco(-1)">← Anterior</button>
+                    <button class="btn-proximo" onclick="validarEAvancar(6)">Próximo →</button>
+                </div>
+            </div>
+
+            <!-- BLOCO 7: Estilo da Logo -->
+            <div class="bloco" data-bloco="7">
+                <div class="bloco-numero">Etapa 7 de 22</div>
+                <h2>Como sua logo deve parecer?</h2>
+                <p class="bloco-descricao">O estilo visual da sua identidade</p>
+
+                <div class="form-group">
+                    <label>
+                        Você prefere logo com desenho/ícone ou apenas letras?
+                        <span class="required">*</span>
+                        <div class="info-icon">
+                            i
+                            <div class="tooltip-box">Com desenho: balança, escudo, animal, ícone | Só letras: nome elegante, monograma</div>
+                        </div>
+                    </label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="tipoLogo" value="Com desenho/ícone" required> Com um desenho ou ícone representativo</label>
+                        <label><input type="radio" name="tipoLogo" value="Só letras/tipografia" required> Apenas letras (tipografia)</label>
+                        <label><input type="radio" name="tipoLogo" value="Combinação" required> Combinação dos dois</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Qual estilo visual você prefere? <span class="required">*</span></label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="estilo" value="Clássico e tradicional" required> Clássico e tradicional (brasões, ornamentos)</label>
+                        <label><input type="radio" name="estilo" value="Moderno e minimalista" required> Moderno e minimalista (simples, clean)</label>
+                        <label><input type="radio" name="estilo" value="Geométrico e abstrato" required> Geométrico e abstrato</label>
+                        <label><input type="radio" name="estilo" value="Ilustrativo e artístico" required> Ilustrativo e artístico</label>
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn-anterior" onclick="mudarBloco(-1)">← Anterior</button>
+                    <button class="btn-proximo" onclick="validarEAvancar(7)">Próximo →</button>
+                </div>
+            </div>
+
+            <!-- BLOCO 8: Cores e Tipografia -->
+            <div class="bloco" data-bloco="8">
+                <div class="bloco-numero">Etapa 8 de 22</div>
+                <h2>Cores e Tipos de Letra</h2>
+                <p class="bloco-descricao">Detalhes visuais muito importantes</p>
+
+                <div class="form-group">
+                    <label>
+                        Qual tipo de letra você prefere?
+                        <span class="required">*</span>
+                        <div class="info-icon">
+                            i
+                            <div class="tooltip-box">Com serifas: clássico, formal | Sem serifas: moderno, limpo</div>
+                        </div>
+                    </label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="tipografia" value="Com serifas (clássicas)" required> Com serifas (clássicas, tradicionais)</label>
+                        <label><input type="radio" name="tipografia" value="Sem serifas (modernas)" required> Sem serifas (modernas, limpas)</label>
+                        <label><input type="radio" name="tipografia" value="Combinação" required> Combinação dos dois</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Quais cores você imagina para seu negócio?</label>
+                    <textarea id="paletaCores" name="paletaCores" placeholder="Ex: Azul marinho, cinza, ouro"></textarea>
+                    <div class="exemplo">
+                        <strong>Exemplos por segmento:</strong><br>
+                        • Tradicional/Corporativo: Azul marinho, preto, cinza<br>
+                        • Moderno/Tech: Azul teal, branco, cinza<br>
+                        • Premium/Luxury: Vinho, dourado, creme<br>
+                        • Amigável/Acessível: Tons quentes, laranja, verde
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Cores que você NÃO quer usar?</label>
+                    <input type="text" id="coresEvitar" name="coresEvitar" placeholder="Ex: Muito colorido, rosa vibrante, laranja...">
+                </div>
+
+                <div class="buttons">
+                    <button class="btn-anterior" onclick="mudarBloco(-1)">← Anterior</button>
+                    <button class="btn-proximo" onclick="validarEAvancar(8)">Próximo →</button>
+                </div>
+            </div>
+
+            <!-- BLOCO 9: Aplicações -->
+            <div class="bloco" data-bloco="9">
+                <div class="bloco-numero">Etapa 9 de 22</div>
+                <h2>Onde sua marca vai aparecer?</h2>
+                <p class="bloco-descricao">Aplicações do logo e materiais visuais</p>
+
+                <div class="form-group">
+                    <label>Em quais lugares você precisará da logo? <span class="required">*</span></label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="aplicacoes" value="Cartão de visita"> Cartão de visita</label>
+                        <label><input type="checkbox" name="aplicacoes" value="Papel timbrado"> Papel timbrado e envelopes</label>
+                        <label><input type="checkbox" name="aplicacoes" value="Website"> Website/site</label>
+                        <label><input type="checkbox" name="aplicacoes" value="Redes sociais"> Redes sociais (Instagram, LinkedIn, Facebook, TikTok)</label>
+                        <label><input type="checkbox" name="aplicacoes" value="Packaging/Embalagem"> Packaging/Embalagem</label>
+                        <label><input type="checkbox" name="aplicacoes" value="Placa/Sinalização"> Placa/Sinalização de loja</label>
+                        <label><input type="checkbox" name="aplicacoes" value="Apresentações"> Apresentações e propostas</label>
+                        <label><input type="checkbox" name="aplicacoes" value="E-mail corporativo"> E-mail corporativo</label>
+                        <label><input type="checkbox" name="aplicacoes" value="Anúncios"> Anúncios (Google, Facebook, Instagram)</label>
+                        <label><input type="checkbox" name="aplicacoes" value="Outro"> Outro (especifique abaixo)</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Se marcou "Outro", especifique:</label>
+                    <input type="text" id="aplicacoesOutro" name="aplicacoesOutro" placeholder="Ex: uniformes, frota de carros, etc">
+                </div>
+
+                <div class="buttons">
+                    <button class="btn-anterior" onclick="mudarBloco(-1)">← Anterior</button>
+                    <button class="btn-proximo" onclick="validarEAvancar(9)">Próximo →</button>
+                </div>
+            </div>
+
+            <!-- BLOCO 10: Valores da Marca -->
+            <div class="bloco" data-bloco="10">
+                <div class="bloco-numero">Etapa 10 de 22</div>
+                <h2>Valores e Personalidade</h2>
+                <p class="bloco-descricao">O que sua marca representa</p>
+
+                <div class="form-group">
+                    <label>Quais são os principais valores do seu negócio?</label>
+                    <textarea id="valores" name="valores" placeholder="Ex: Sustentabilidade, qualidade, inovação, ética, confiança..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        Se sua marca fosse uma pessoa, como ela seria?
+                        <div class="info-icon">
+                            i
+                            <div class="tooltip-box">Descreva a personalidade: seria séria? Divertida? Criativa? Confiável?</div>
+                        </div>
+                    </label>
+                    <textarea id="personalidade" name="personalidade" placeholder="Ex: Amigável, inteligente, moderna, confiável..."></textarea>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn-anterior" onclick="mudarBloco(-1)">← Anterior</button>
+                    <button class="btn-proximo" onclick="validarEAvancar(10)">Próximo →</button>
+                </div>
+            </div>
+
+            <!-- BLOCO 11: Competição -->
+            <div class="bloco" data-bloco="11">
+                <div class="bloco-numero">Etapa 11 de 22</div>
+                <h2>Concorrência e Referências</h2>
+                <p class="bloco-descricao">O que você admira e o que quer evitar</p>
+
+                <div class="form-group">
+                    <label>Tem algum concorrente ou empresa que você admira visualmente?</label>
+                    <textarea id="referenciasPositivas" name="referenciasPositivas" placeholder="Ex: Apple porque é simples, Netflix porque é inovadora..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Tem alguma marca que você NÃO gosta? Por quê?</label>
+                    <textarea id="logosNaoGosta" name="logosNaoGosta" placeholder="Ex: Poluída, desatualizada, confusa..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Quais elementos visuais você gostaria de evitar?</label>
+                    <textarea id="elementosEvitar" name="elementosEvitar" placeholder="Ex: Balança, martelo, muitas cores, efeitos 3D..."></textarea>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn-anterior" onclick="mudarBloco(-1)">← Anterior</button>
+                    <button class="btn-proximo" onclick="validarEAvancar(11)">Próximo →</button>
+                </div>
+            </div>
+
+            <!-- BLOCO 12: Cronograma -->
+            <div class="bloco" data-bloco="12">
+                <div class="bloco-numero">Etapa 12 de 22</div>
+                <h2>Cronograma e Processo</h2>
+                <p class="bloco-descricao">Prazos e quem vai aprovar</p>
+
+                <div class="form-group">
+                    <label>
+                        Qual é o prazo para ter a marca pronta?
+                        <span class="required">*</span>
+                        <div class="info-icon">
+                            i
+                            <div class="tooltip-box">Quando você precisa disso pronto? Dias, semanas, meses?</div>
+                        </div>
+                    </label>
+                    <input type="text" id="prazo" name="prazo" placeholder="Ex: 15 dias, 1 mês, 2 semanas..." required>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        Existe alguma data importante? (lançamento, evento, rebranding)
+                        <span class="required">*</span>
+                    </label>
+                    <input type="text" id="dataImportante" name="dataImportante" placeholder="Ex: Abertura da loja em 30 de junho" required>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        Quem vai decidir e aprovar a marca?
+                        <span class="required">*</span>
+                        <div class="info-icon">
+                            i
+                            <div class="tooltip-box">Você mesmo, um sócio, um gerente, uma comissão?</div>
+                        </div>
+                    </label>
+                    <input type="text" id="aprovacao" name="aprovacao" placeholder="Ex: Eu mesmo, meu sócio, gerente..." required>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn-anterior" onclick="mudarBloco(-1)">← Anterior</button>
+                    <button class="btn-proximo" onclick="validarEAvancar(12)">Próximo →</button>
+                </div>
+            </div>
+
+            <!-- BLOCO 13: Detalhes Específicos por Tipo -->
+            <div class="bloco" data-bloco="13" id="blocoEspecifico">
+                <div class="bloco-numero">Etapa 13 de 22</div>
+                <h2>Detalhes Específicos</h2>
+                <p class="bloco-descricao">Perguntas focadas no seu segmento</p>
+
+                <div id="perguntasEspecificas"></div>
+
+                <div class="buttons">
+                    <button class="btn-anterior" onclick="mudarBloco(-1)">← Anterior</button>
+                    <button class="btn-proximo" onclick="validarEAvancar(13)">Próximo →</button>
+                </div>
+            </div>
+
+            <!-- BLOCO 14: Visibilidade e Marketing -->
+            <div class="bloco" data-bloco="14">
+                <div class="bloco-numero">Etapa 14 de 22</div>
+                <h2>Visibilidade e Marketing</h2>
+                <p class="bloco-descricao">Como você pretende se promover</p>
+
+                <div class="form-group">
+                    <label>Qual é o seu principal canal de comunicação com clientes?</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="canalPrincipal" value="Redes sociais"> Redes sociais</label>
+                        <label><input type="radio" name="canalPrincipal" value="Site/E-commerce"> Site/E-commerce</label>
+                        <label><input type="radio" name="canalPrincipal" value="Presencial"> Presencial (loja física)</label>
+                        <label><input type="radio" name="canalPrincipal" value="E-mail/Newsletter"> E-mail/Newsletter</label>
+                        <label><input type="radio" name="canalPrincipal" value="Google/Buscador"> Google/Buscador</label>
+                        <label><input type="radio" name="canalPrincipal" value="Múltiplos"> Múltiplos canais</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Você já tem presença online?</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="presenciaOnline" value="Sim, bem desenvolvida"> Sim, bem desenvolvida</label>
+                        <label><input type="radio" name="presenciaOnline" value="Sim, mas precisa melhorar"> Sim, mas precisa melhorar</label>
+                        <label><input type="radio" name="presenciaOnline" value="Não, é novo"> Não, é novo</label>
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn-anterior" onclick="mudarBloco(-1)">← Anterior</button>
+                    <button class="btn-proximo" onclick="validarEAvancar(14)">Próximo →</button>
+                </div>
+            </div>
+
+            <!-- BLOCO 15: Marca Existente -->
+            <div class="bloco" data-bloco="15">
+                <div class="bloco-numero">Etapa 15 de 22</div>
+                <h2>Marca Existente</h2>
+                <p class="bloco-descricao">Se houver marca anterior, conte-nos sobre ela</p>
+
+                <div class="form-group">
+                    <label>Você já tem uma marca/logo existente?</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="marcaExistente" value="Não, é novo" onchange="mostrarCamposRebranding()"> Não, é novo negócio</label>
+                        <label><input type="radio" name="marcaExistente" value="Sim, vou rebranding" onchange="mostrarCamposRebranding()"> Sim, mas vou fazer rebranding</label>
+                        <label><input type="radio" name="marcaExistente" value="Sim, vou atualizar" onchange="mostrarCamposRebranding()"> Sim, mas vou apenas atualizar</label>
+                    </div>
+                </div>
+
+                <div id="camposRebranding" style="display:none;">
+                    <div class="form-group">
+                        <label>Por que decidiu mudar/atualizar a marca?</label>
+                        <textarea id="motivoMudanca" name="motivoMudanca" placeholder="Ex: Marca desatualizada, mudança de posicionamento, expansão..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>O que da marca antiga você gostaria de manter?</label>
+                        <textarea id="manterDaAntiga" name="manterDaAntiga" placeholder="Ex: A cor azul, o estilo minimalista, o monograma..."></textarea>
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn-anterior" onclick="mudarBloco(-1)">← Anterior</button>
+                    <button class="btn-proximo" onclick="validarEAvancar(15)">Próximo →</button>
+                </div>
+            </div>
+
+            <!-- BLOCO 16: Estratégia -->
+            <div class="bloco" data-bloco="16">
+                <div class="bloco-numero">Etapa 16 de 22</div>
+                <h2>Estratégia e Crescimento</h2>
+                <p class="bloco-descricao">Seus planos para o futuro</p>
+
+                <div class="form-group">
+                    <label>Você planeja expandir para outros segmentos/regiões nos próximos anos?</label>
+                    <textarea id="expansao" name="expansao" placeholder="Ex: Sim, abrir 5 novas filiais em 2 anos, expandir internacionalmente..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Qual é o seu público secundário (se houver)?</label>
+                    <textarea id="publicoSecundario" name="publicoSecundario" placeholder="Ex: Além de jovens profissionais, queremos atingir pais executivos..."></textarea>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn-anterior" onclick="mudarBloco(-1)">← Anterior</button>
+                    <button class="btn-proximo" onclick="validarEAvancar(16)">Próximo →</button>
+                </div>
+            </div>
+
+            <!-- BLOCO 17: Tone of Voice -->
+            <div class="bloco" data-bloco="17">
+                <div class="bloco-numero">Etapa 17 de 22</div>
+                <h2>Tom e Linguagem</h2>
+                <p class="bloco-descricao">Como sua marca fala com clientes</p>
+
+                <div class="form-group">
+                    <label>
+                        Como você fala com seus clientes?
+                        <span class="required">*</span>
+                        <div class="info-icon">
+                            i
+                            <div class="tooltip-box">Formal? Casual? Técnico? Amigável? Irônico?</div>
+                        </div>
+                    </label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="toneOfVoice" value="Muito formal e corporativo" required> Muito formal e corporativo</label>
+                        <label><input type="radio" name="toneOfVoice" value="Profissional mas acessível" required> Profissional mas acessível</label>
+                        <label><input type="radio" name="toneOfVoice" value="Casual e amigável" required> Casual e amigável</label>
+                        <label><input type="radio" name="toneOfVoice" value="Criativo e bem-humorado" required> Criativo e bem-humorado</label>
+                        <label><input type="radio" name="toneOfVoice" value="Técnico e especializado" required> Técnico e especializado</label>
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn-anterior" onclick="mudarBloco(-1)">← Anterior</button>
+                    <button class="btn-proximo" onclick="validarEAvancar(17)">Próximo →</button>
+                </div>
+            </div>
+
+            <!-- BLOCO 18: Orçamento e Escopo -->
+            <div class="bloco" data-bloco="18">
+                <div class="bloco-numero">Etapa 18 de 22</div>
+                <h2>Escopo e Entregáveis</h2>
+                <p class="bloco-descricao">O que você espera receber</p>
+
+                <div class="form-group">
+                    <label>Qual é o escopo do projeto?</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="escopo" value="Logo"> Logo e símbolo</label>
+                        <label><input type="checkbox" name="escopo" value="Cores e tipografia"> Cores e tipografia</label>
+                        <label><input type="checkbox" name="escopo" value="Manual de marca"> Manual de marca (guidelines)</label>
+                        <label><input type="checkbox" name="escopo" value="Cartão e papelaria"> Cartão de visita e papelaria</label>
+                        <label><input type="checkbox" name="escopo" value="Design para redes"> Design para redes sociais</label>
+                        <label><input type="checkbox" name="escopo" value="Website"> Website/site design</label>
+                        <label><input type="checkbox" name="escopo" value="Packaging"> Packaging/embalagem</label>
+                        <label><input type="checkbox" name="escopo" value="Tudo acima"> Tudo acima (pacote completo)</label>
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn-anterior" onclick="mudarBloco(-1)">← Anterior</button>
+                    <button class="btn-proximo" onclick="validarEAvancar(18)">Próximo →</button>
+                </div>
+            </div>
+
+            <!-- BLOCO 19: Concorrência Detalhada -->
+            <div class="bloco" data-bloco="19">
+                <div class="bloco-numero">Etapa 19 de 22</div>
+                <h2>Análise de Mercado</h2>
+                <p class="bloco-descricao">Entender seu posicionamento competitivo</p>
+
+                <div class="form-group">
+                    <label>Cite 2-3 concorrentes diretos</label>
+                    <textarea id="concorrentes" name="concorrentes" placeholder="Ex: Empresa A, Empresa B, Empresa C"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>O que faz você diferente deles?</label>
+                    <textarea id="diferencialConcorrentes" name="diferencialConcorrentes" placeholder="Ex: Mais rápido, mais barato, mais inovador, melhor atendimento..."></textarea>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn-anterior" onclick="mudarBloco(-1)">← Anterior</button>
+                    <button class="btn-proximo" onclick="validarEAvancar(19)">Próximo →</button>
+                </div>
+            </div>
+
+            <!-- BLOCO 20: Público e Segmentação -->
+            <div class="bloco" data-bloco="20">
+                <div class="bloco-numero">Etapa 20 de 22</div>
+                <h2>Segmentação de Público</h2>
+                <p class="bloco-descricao">Entender melhor seu mercado</p>
+
+                <div class="form-group">
+                    <label>Qual é o percentual de clientes por categoria?</label>
+                    <div class="exemplo">
+                        <strong>Exemplo:</strong><br>
+                        • 60% Jovens profissionais (25-35 anos)<br>
+                        • 30% Executivos (35-50 anos)<br>
+                        • 10% Estudantes
+                    </div>
+                    <textarea id="segmentacao" name="segmentacao" placeholder="Descreva como seus clientes se dividem..."></textarea>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn-anterior" onclick="mudarBloco(-1)">← Anterior</button>
+                    <button class="btn-proximo" onclick="validarEAvancar(20)">Próximo →</button>
+                </div>
+            </div>
+
+            <!-- BLOCO 21: Extras -->
+            <div class="bloco" data-bloco="21">
+                <div class="bloco-numero">Etapa 21 de 22</div>
+                <h2>Informações Extras</h2>
+                <p class="bloco-descricao">Qualquer coisa que você acha importante</p>
+
+                <div class="form-group">
+                    <label>Você tem restrições ou limitações que devemos saber?</label>
+                    <textarea id="restricoes" name="restricoes" placeholder="Ex: Não queremos usar muitas cores, precisamos ser acessível, tem limitações de orçamento..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Qual é seu nível de investimento/orçamento disponível?</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="orcamento" value="Até R$1.000"> Até R$ 1.000</label>
+                        <label><input type="radio" name="orcamento" value="R$1.000 a R$5.000"> R$ 1.000 a R$ 5.000</label>
+                        <label><input type="radio" name="orcamento" value="R$5.000 a R$10.000"> R$ 5.000 a R$ 10.000</label>
+                        <label><input type="radio" name="orcamento" value="Acima de R$10.000"> Acima de R$ 10.000</label>
+                        <label><input type="radio" name="orcamento" value="Sem limitação"> Sem limitação definida</label>
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn-anterior" onclick="mudarBloco(-1)">← Anterior</button>
+                    <button class="btn-proximo" onclick="validarEAvancar(21)">Próximo →</button>
+                </div>
+            </div>
+
+            <!-- BLOCO 22: Finalização -->
+            <div class="bloco" data-bloco="22">
+                <div class="bloco-numero">Etapa 22 de 22 - Final</div>
+                <h2>Obrigado! 🎉</h2>
+                <p class="bloco-descricao">Você respondeu todas as perguntas com atenção</p>
+
+                <div class="form-group">
+                    <label>Alguma informação adicional importante?</label>
+                    <textarea id="adicional" name="adicional" placeholder="Deixe aqui qualquer detalhe que achar importante..."></textarea>
+                </div>
+
+                <div class="success-box">
+                    <p>✓ <strong>Muito obrigado!</strong> Você respondeu todas as 22 etapas com atenção. Ao clicar em "Enviar Briefing", seus dados serão salvos de forma segura e nossa equipe de design entrará em contato em breve para os próximos passos da criação da sua identidade visual.</p>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn-anterior" onclick="mudarBloco(-1)">← Anterior</button>
+                    <button class="btn-enviar" onclick="enviarFormulario()" style="background: #2e7d32;">✓ Enviar Briefing Completo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let blocoAtual = 1;
+        const totalBlocos = 22;
+        const sheetUrl = 'https://script.google.com/macros/s/AKfycbxJMPcEBGa5RB54EQuTpZGDyxaPxhnGrz2_YcZeG6L7ULlml8I5y00J_Q6zKVqUXpvuAA/exec';
+        let tipoNegocioSelecionado = '';
+
+        const perguntasEspecificas = {
+            'Restaurante/Café/Bar': [
+                { pergunta: 'Qual é o conceito?', campo: 'conceito_restaurante', tipo: 'select', opcoes: ['Casual', 'Fine Dining', 'Fusion', 'Fast Food', 'Temático', 'Outro'] },
+                { pergunta: 'Qual é a culinária principal?', campo: 'culinaria', tipo: 'text', placeholder: 'Ex: Italiana, Japonesa, Brasileira...' },
+                { pergunta: 'Qual é o ambiente desejado?', campo: 'ambiente', tipo: 'select', opcoes: ['Aconchegante', 'Moderno', 'Rústico', 'Elegante', 'Industrial'] }
+            ],
+            'E-commerce': [
+                { pergunta: 'Qual é a categoria principal?', campo: 'categoria_principal', tipo: 'text', placeholder: 'Ex: Moda, Eletrônicos, Alimentos...' },
+                { pergunta: 'B2B, B2C ou ambos?', campo: 'b2b_b2c', tipo: 'select', opcoes: ['B2C (Consumidor)', 'B2B (Empresa)', 'Ambos'] },
+                { pergunta: 'Qual é a faixa de preço?', campo: 'faixa_preco', tipo: 'select', opcoes: ['Econômico', 'Médio', 'Premium', 'Varia muito'] }
+            ],
+            'Tecnologia': [
+                { pergunta: 'O que é exatamente seu produto?', campo: 'produto_tech', tipo: 'text', placeholder: 'Ex: App móvel, plataforma web, software...' },
+                { pergunta: 'Estágio do negócio?', campo: 'estagio_tech', tipo: 'select', opcoes: ['MVP', 'Crescimento', 'Escala', 'Consolidado'] },
+                { pergunta: 'Parece inovador ou confiável?', campo: 'inovacao_confianca', tipo: 'select', opcoes: ['Muito inovador', 'Confiável e tradicional', 'Ambos', 'Criativo e cutting-edge'] }
+            ],
+            'Moda': [
+                { pergunta: 'Qual é o estilo?', campo: 'estilo_moda', tipo: 'select', opcoes: ['Casual', 'Formal', 'Streetwear', 'Luxury', 'Sustentável', 'Outro'] },
+                { pergunta: 'Foco de mercado?', campo: 'foco_moda', tipo: 'select', opcoes: ['Mulheres', 'Homens', 'Unissex', 'Crianças', 'Grávidas'] },
+                { pergunta: 'Faixa de preço?', campo: 'preco_moda', tipo: 'select', opcoes: ['Econômico', 'Médio', 'Premium', 'Luxury'] }
+            ],
+            'Consultoria': [
+                { pergunta: 'Qual é a especialidade?', campo: 'especialidade', tipo: 'text', placeholder: 'Ex: Marketing, RH, Financeiro...' },
+                { pergunta: 'Público alvo?', campo: 'publico_consultoria', tipo: 'select', opcoes: ['Grandes empresas', 'PMEs', 'Startups', 'Indivíduos', 'Misto'] },
+                { pergunta: 'Parecer inovador ou tradicional?', campo: 'tradicional_inovador', tipo: 'select', opcoes: ['Muito inovador', 'Tradicional e confiável', 'Ambos'] }
+            ],
+            'Saúde/Wellness': [
+                { pergunta: 'Qual é a especialidade?', campo: 'especialidade_saude', tipo: 'select', opcoes: ['Salão de beleza', 'Clínica', 'Academia', 'Spa', 'Terapia', 'Outro'] },
+                { pergunta: 'Foco principal?', campo: 'foco_wellness', tipo: 'select', opcoes: ['Beleza', 'Saúde', 'Bem-estar', 'Performance', 'Relaxamento'] },
+                { pergunta: 'Faixa de preço?', campo: 'preco_wellness', tipo: 'select', opcoes: ['Econômico', 'Médio', 'Premium'] }
+            ],
+            'Nonprofit': [
+                { pergunta: 'Qual é a causa/missão?', campo: 'causa', tipo: 'text', placeholder: 'Ex: Sustentabilidade, educação, saúde...' },
+                { pergunta: 'Amplitude geográfica?', campo: 'amplitude', tipo: 'select', opcoes: ['Local', 'Regional', 'Nacional', 'Internacional'] },
+                { pergunta: 'Tom desejado?', campo: 'tom_nonprofit', tipo: 'select', opcoes: ['Inspirador', 'Urgente', 'Comunitário', 'Técnico'] }
+            ]
+        };
+
+        const camposObrigatorios = {
+            1: ['tipoNegocio'],
+            2: ['nomeEmpresa', 'contato'],
+            3: ['descricao'],
+            4: ['diferencial'],
+            5: ['clienteIdeal', 'faixaRenda'],
+            6: ['sensacao', 'formalidade', 'modernidade'],
+            7: ['tipoLogo', 'estilo'],
+            8: ['tipografia'],
+            9: ['aplicacoes'],
+            10: [],
+            11: [],
+            12: ['prazo', 'dataImportante', 'aprovacao'],
+            13: [],
+            14: [],
+            15: [],
+            16: [],
+            17: ['toneOfVoice'],
+            18: ['escopo'],
+            19: [],
+            20: [],
+            21: [],
+            22: []
+        };
+
+        function atualizarTipo() {
+            tipoNegocioSelecionado = document.getElementById('tipoNegocio').value;
+            gerarPerguntasEspecificas();
+        }
+
+        function gerarPerguntasEspecificas() {
+            const container = document.getElementById('perguntasEspecificas');
+            container.innerHTML = '';
+
+            const perguntas = perguntasEspecificas[tipoNegocioSelecionado] || [];
+
+            if (perguntas.length === 0) {
+                container.innerHTML = '<p style="color: #666; font-size: 14px;">Sem perguntas específicas para este segmento.</p>';
+                return;
+            }
+
+            perguntas.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'form-group';
+
+                if (item.tipo === 'select') {
+                    div.innerHTML = `
+                        <label>${item.pergunta}</label>
+                        <select id="${item.campo}" name="${item.campo}">
+                            <option value="">Selecione...</option>
+                            ${item.opcoes.map(op => `<option value="${op}">${op}</option>`).join('')}
+                        </select>
+                    `;
+                } else {
+                    div.innerHTML = `
+                        <label>${item.pergunta}</label>
+                        <input type="text" id="${item.campo}" name="${item.campo}" placeholder="${item.placeholder || ''}">
+                    `;
+                }
+
+                container.appendChild(div);
+            });
+        }
+
+        function mostrarCamposRebranding() {
+            const marcaExistente = document.querySelector('input[name="marcaExistente"]:checked')?.value;
+            const campos = document.getElementById('camposRebranding');
+            
+            if (marcaExistente && marcaExistente !== 'Não, é novo') {
+                campos.style.display = 'block';
+            } else {
+                campos.style.display = 'none';
+            }
+        }
+
+        function validarCamposBloco(bloco) {
+            const campos = camposObrigatorios[bloco] || [];
+            
+            for (let campo of campos) {
+                const elementos = document.querySelectorAll(`[name="${campo}"]`);
+                if (elementos.length === 0) continue;
+
+                const tipo = elementos[0].type;
+
+                if (tipo === 'checkbox') {
+                    const algumChecked = Array.from(elementos).some(el => el.checked);
+                    if (!algumChecked) return false;
+                } else if (tipo === 'radio') {
+                    const algumChecked = Array.from(elementos).some(el => el.checked);
+                    if (!algumChecked) return false;
+                } else {
+                    const el = document.getElementById(campo);
+                    if (!el || !el.value.trim()) return false;
+                }
+            }
+            return true;
+        }
+
+        function validarEAvancar(blocoAtual) {
+            if (validarCamposBloco(blocoAtual)) {
+                mudarBloco(1);
+            } else {
+                mostrarMensagem('⚠️ Por favor, preencha todos os campos obrigatórios (*)', 'error');
+            }
+        }
+
+        function mudarBloco(direcao) {
+            const novoBloco = blocoAtual + direcao;
+
+            if (novoBloco >= 1 && novoBloco <= totalBlocos) {
+                document.querySelector(`.bloco[data-bloco="${blocoAtual}"]`).classList.remove('active');
+                blocoAtual = novoBloco;
+                document.querySelector(`.bloco[data-bloco="${blocoAtual}"]`).classList.add('active');
+                atualizarProgresso();
+                window.scrollTo(0, 0);
+                limparMensagem();
+
+                // Gerar perguntas específicas no bloco 13
+                if (blocoAtual === 13) {
+                    gerarPerguntasEspecificas();
+                }
+            }
+        }
+
+        function atualizarProgresso() {
+            const percentual = (blocoAtual / totalBlocos) * 100;
+            document.getElementById('progressFill').style.width = percentual + '%';
+            document.getElementById('progressText').textContent = `Etapa ${blocoAtual} de ${totalBlocos}`;
+        }
+
+        function enviarFormulario() {
+            const formData = {};
+
+            document.querySelectorAll('input[type="text"], input[type="email"], textarea, select').forEach(input => {
+                if (input.name) formData[input.name] = input.value;
+            });
+
+            document.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
+                if (!formData[checkbox.name]) formData[checkbox.name] = [];
+                formData[checkbox.name].push(checkbox.value);
+            });
+
+            document.querySelectorAll('input[type="radio"]:checked').forEach(radio => {
+                formData[radio.name] = radio.value;
+            });
+
+            mostrarMensagem('<span class="spinner"></span> Enviando seu briefing completo...', 'loading');
+
+            fetch(sheetUrl, {
+                method: 'POST',
+                body: JSON.stringify(formData),
+                headers: {'Content-Type': 'application/json'}
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'sucesso') {
+                    mostrarMensagem('✓ Seu briefing foi enviado com sucesso! Nossa equipe entrará em contato em breve.', 'success');
+                    setTimeout(() => location.reload(), 4000);
+                } else {
+                    mostrarMensagem('⚠️ Erro ao enviar. Tente novamente.', 'error');
+                }
+            })
+            .catch(error => {
+                mostrarMensagem('⚠️ Erro: ' + error.message, 'error');
+            });
+        }
+
+        function mostrarMensagem(texto, tipo) {
+            const container = document.getElementById('messageContainer');
+            container.innerHTML = texto;
+            container.className = `message show ${tipo}`;
+        }
+
+        function limparMensagem() {
+            const container = document.getElementById('messageContainer');
+            container.className = 'message';
+            container.innerHTML = '';
+        }
+
+        atualizarProgresso();
+    </script>
+</body>
+</html>
 
