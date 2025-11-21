@@ -753,15 +753,15 @@ input[type="range"]::-moz-range-thumb {
 <body>
     <div class="app-container">
         <header class="header">
-            <h1>Vamos criar a identidade visual do seu negócio</h1>
-            <p>Responda com atenção. Isso nos ajudará a entender exatamente o que você precisa para sua marca, logo, cores, e materiais digitais.</p>
+            <h1>Vamos criar a identidade visual perfeita para seu negócio</h1>
+            <p>Responda com atenção. Quanto mais detalhes você fornecer, melhor será sua marca, logo, cores, canais digitais e tudo mais.</p>
         </header>
 
         <div class="progress-container">
             <div class="progress-bar">
                 <div class="progress-fill" id="progressFill"></div>
             </div>
-            <div class="progress-text" id="progressText">Bloco 1 de 13</div>
+            <div class="progress-text" id="progressText">Bloco 1 de 22</div>
         </div>
 
         <form id="briefingForm">
@@ -777,21 +777,25 @@ input[type="range"]::-moz-range-thumb {
                         </label>
                         <select id="tipoNegocio" name="tipoNegocio" class="form-control" required>
                             <option value="">Selecione uma opção...</option>
-                            <option value="Restaurante/Café/Bar">Restaurante/Café/Bar</option>
+                            <option value="Restaurante/Café/Bar/Padaria">Restaurante/Café/Bar/Padaria</option>
                             <option value="E-commerce/Loja Online">E-commerce/Loja Online</option>
-                            <option value="Saúde e Wellness">Saúde e Wellness (salão, clínica, gym)</option>
-                            <option value="Tecnologia/Startup">Tecnologia/Startup</option>
-                            <option value="Consultoria/Serviços">Consultoria/Serviços</option>
+                            <option value="Saúde e Wellness">Saúde e Wellness (salão, clínica, academia, spa)</option>
+                            <option value="Tecnologia/SaaS/Startup">Tecnologia/SaaS/Startup</option>
+                            <option value="Consultoria/Serviços Profissionais">Consultoria/Serviços Profissionais</option>
                             <option value="Varejo/Loja Física">Varejo/Loja Física</option>
                             <option value="Imobiliária">Imobiliária</option>
-                            <option value="Educação/Cursos">Educação/Cursos</option>
-                            <option value="Agência Criativa/Marketing">Agência Criativa/Marketing</option>
+                            <option value="Educação/Cursos/Treinamento">Educação/Cursos/Treinamento</option>
+                            <option value="Agência Criativa/Marketing/Design">Agência Criativa/Marketing/Design</option>
                             <option value="Indústria/Manufatura">Indústria/Manufatura</option>
-                            <option value="Moda/Design">Moda/Design</option>
-                            <option value="Hotelaria/Turismo">Hotelaria/Turismo</option>
-                            <option value="Nonprofit/ONG">Nonprofit/ONG</option>
-                            <option value="Construção/Engenharia">Construção/Engenharia</option>
-                            <option value="Advocacia">Advocacia</option>
+                            <option value="Moda/Vestuário/Acessórios">Moda/Vestuário/Acessórios</option>
+                            <option value="Hotelaria/Turismo/Hospedagem">Hotelaria/Turismo/Hospedagem</option>
+                            <option value="Nonprofit/ONG/Associação">Nonprofit/ONG/Associação</option>
+                            <option value="Construção/Engenharia/Reforma">Construção/Engenharia/Reforma</option>
+                            <option value="Transporte/Logística">Transporte/Logística</option>
+                            <option value="Beleza/Cosméticos">Beleza/Cosméticos</option>
+                            <option value="Alimentos/Bebidas (indústria)">Alimentos/Bebidas (indústria)</option>
+                            <option value="Serviços Financeiros/Seguros">Serviços Financeiros/Seguros</option>
+                            <option value="Imprensa/Mídia/Comunicação">Imprensa/Mídia/Comunicação</option>
                             <option value="Outro">Outro</option>
                         </select>
                         <small style="color: var(--color-text-secondary); font-size: var(--font-size-sm); display: block; margin-top: var(--space-4);">💡 Isso nos ajuda a adaptar as perguntas e sugestões para o seu segmento</small>
@@ -1359,11 +1363,558 @@ input[type="range"]::-moz-range-thumb {
                 </div>
             </div>
 
-            <!-- Bloco 13: Pronto! -->
+            <!-- Bloco 13: Contexto e Mercado -->
             <div class="block" data-block="13">
                 <div class="form-section">
-                    <h2>13. Pronto!</h2>
-                    <p class="section-description">Muito obrigado por dedicar seu tempo a responder esse formulário</p>
+                    <h2>13. Contexto e Mercado</h2>
+                    <p class="section-description">Vamos entender melhor o cenário em que você atua</p>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="motivoIdentidade">Por que você está criando/renovando sua identidade visual agora? *</label>
+                        <select id="motivoIdentidade" name="motivoIdentidade" class="form-control" required>
+                            <option value="">Selecione uma opção...</option>
+                            <option value="Novo negócio">Estou abrindo um novo negócio</option>
+                            <option value="Rebranding">Já tenho negócio mas quero renovar a marca</option>
+                            <option value="Nunca tive identidade">Meu negócio já existe mas nunca teve identidade profissional</option>
+                            <option value="Expansão">Estou expandindo e preciso profissionalizar</option>
+                        </select>
+                        <div class="field-error" id="motivoIdentidadeError">Este campo é obrigatório</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="principaisConcorrentes">Quem são seus 2-3 principais concorrentes?</label>
+                        <textarea id="principaisConcorrentes" name="principaisConcorrentes" class="form-control" placeholder="Ex: Cafeteria do João, Café Central, Starbucks da região..." rows="2"></textarea>
+                        <small style="color: var(--color-text-secondary); font-size: var(--font-size-sm); display: block; margin-top: var(--space-4);">💡 Queremos ver como eles se apresentam visualmente para garantir que você se destaque</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="vantagem">Por que um cliente escolheria você em vez deles?</label>
+                        <textarea id="vantagem" name="vantagem" class="form-control" placeholder="Ex: Somos mais rápidos, temos melhor preço, atendimento mais personalizado, produto de maior qualidade..." rows="2"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bloco 14: Detalhes Específicos por Segmento (ADAPTATIVO) -->
+            <div class="block" data-block="14" id="industryBlock">
+                <div class="form-section">
+                    <h2>14. Detalhes do Seu Segmento</h2>
+                    <p class="section-description" id="industryDescription">Perguntas específicas para o seu tipo de negócio</p>
+                    
+                    <!-- Restaurant/Food -->
+                    <div class="industry-questions" data-industry="Restaurante/Café/Bar" style="display: none;">
+                        <div class="form-group">
+                            <label class="form-label" for="conceito">Qual é o conceito do seu estabelecimento?</label>
+                            <input type="text" class="form-control" name="conceito" placeholder="Ex: Casual, fine dining, fast-casual, bistro, delivery...">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="tipoComida">Qual tipo de comida/culinária?</label>
+                            <input type="text" class="form-control" name="tipoComida" placeholder="Ex: Brasileira, italiana, japonesa, vegana, fusion...">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="ambienteDesejado">Qual ambiente você quer transmitir?</label>
+                            <select class="form-control" name="ambienteDesejado">
+                                <option value="">Selecione...</option>
+                                <option value="Aconchegante">Aconchegante e familiar</option>
+                                <option value="Moderno">Moderno e despojado</option>
+                                <option value="Elegante">Elegante e sofisticado</option>
+                                <option value="Rústico">Rústico e tradicional</option>
+                                <option value="Descontraído">Descontraído e jovem</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- E-commerce -->
+                    <div class="industry-questions" data-industry="E-commerce/Loja Online" style="display: none;">
+                        <div class="form-group">
+                            <label class="form-label" for="categoriasProdutos">Quais são as principais categorias de produtos?</label>
+                            <textarea class="form-control" name="categoriasProdutos" placeholder="Ex: Eletrônicos, moda feminina, decoração, alimentos orgânicos..." rows="2"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="plataforma">Em qual plataforma você vende?</label>
+                            <input type="text" class="form-control" name="plataforma" placeholder="Ex: Site próprio, Mercado Livre, Instagram, múltiplos canais...">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Seu público é:</label>
+                            <div class="radio-group">
+                                <div class="radio-item">
+                                    <input type="radio" name="publicoEcommerce" value="B2C">
+                                    <label>B2C - Consumidor final</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="publicoEcommerce" value="B2B">
+                                    <label>B2B - Outras empresas</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="publicoEcommerce" value="Ambos">
+                                    <label>Ambos</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tech/SaaS -->
+                    <div class="industry-questions" data-industry="Tecnologia/Startup" style="display: none;">
+                        <div class="form-group">
+                            <label class="form-label" for="produtoTech">Qual é seu produto/serviço exatamente?</label>
+                            <textarea class="form-control" name="produtoTech" placeholder="Ex: Plataforma de gestão financeira, app de delivery, sistema de CRM..." rows="2"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="estagioStartup">Em que estágio sua startup está?</label>
+                            <select class="form-control" name="estagioStartup">
+                                <option value="">Selecione...</option>
+                                <option value="Ideia/MVP">Ideia ou desenvolvendo MVP</option>
+                                <option value="Lançamento">Pronto para lançar</option>
+                                <option value="Crescimento">Em crescimento (já tenho clientes)</option>
+                                <option value="Escala">Em escala (consolidado no mercado)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Você quer parecer:</label>
+                            <div class="radio-group">
+                                <div class="radio-item">
+                                    <input type="radio" name="imagemTech" value="Inovador">
+                                    <label>Inovador e disruptivo</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="imagemTech" value="Confiável">
+                                    <label>Confiável e estabelecido</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="imagemTech" value="Equilibrado">
+                                    <label>Equilíbrio entre ambos</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Health/Wellness -->
+                    <div class="industry-questions" data-industry="Saúde e Wellness" style="display: none;">
+                        <div class="form-group">
+                            <label class="form-label" for="tipoServico">Qual serviço você oferece especificamente?</label>
+                            <input type="text" class="form-control" name="tipoServico" placeholder="Ex: Corte de cabelo, fisioterapia, personal trainer, massagem...">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="ambienteWellness">Que sensação você quer transmitir?</label>
+                            <select class="form-control" name="ambienteWellness">
+                                <option value="">Selecione...</option>
+                                <option value="Relaxante">Relaxante e calmo</option>
+                                <option value="Energizante">Energizante e motivador</option>
+                                <option value="Profissional">Profissional e técnico</option>
+                                <option value="Acolhedor">Acolhedor e humano</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Moda/Design -->
+                    <div class="industry-questions" data-industry="Moda/Design" style="display: none;">
+                        <div class="form-group">
+                            <label class="form-label" for="estiloModa">Qual é o estilo das suas peças?</label>
+                            <input type="text" class="form-control" name="estiloModa" placeholder="Ex: Casual, formal, streetwear, luxury, sustainable, boho...">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="publicoModa">Seu público-alvo é:</label>
+                            <input type="text" class="form-control" name="publicoModa" placeholder="Ex: Mulheres 25-35, jovens urbanos, executivos, unissex...">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="canalVenda">Como você vende?</label>
+                            <select class="form-control" name="canalVenda">
+                                <option value="">Selecione...</option>
+                                <option value="Loja física">Apenas loja física</option>
+                                <option value="Online">Apenas online</option>
+                                <option value="Ambos">Loja física e online</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Consultoria -->
+                    <div class="industry-questions" data-industry="Consultoria/Serviços" style="display: none;">
+                        <div class="form-group">
+                            <label class="form-label" for="especialidade">Qual é sua especialidade?</label>
+                            <textarea class="form-control" name="especialidade" placeholder="Ex: Consultoria financeira, RH, marketing, estratégia empresarial..." rows="2"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="porteClientes">Qual o porte dos seus clientes típicos?</label>
+                            <select class="form-control" name="porteClientes">
+                                <option value="">Selecione...</option>
+                                <option value="Pequenas empresas">Pequenas empresas e MEI</option>
+                                <option value="PMEs">Médias empresas</option>
+                                <option value="Grandes">Grandes empresas</option>
+                                <option value="Variado">Variado</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Nonprofit -->
+                    <div class="industry-questions" data-industry="Nonprofit/ONG" style="display: none;">
+                        <div class="form-group">
+                            <label class="form-label" for="causa">Qual é a causa/missão da organização?</label>
+                            <textarea class="form-control" name="causa" placeholder="Ex: Proteção animal, educação infantil, meio ambiente, direitos humanos..." rows="2"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="alcanceGeografico">Qual o alcance geográfico?</label>
+                            <select class="form-control" name="alcanceGeografico">
+                                <option value="">Selecione...</option>
+                                <option value="Local">Local (bairro/cidade)</option>
+                                <option value="Regional">Regional (estado)</option>
+                                <option value="Nacional">Nacional</option>
+                                <option value="Internacional">Internacional</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="tomONG">Que tom você quer transmitir?</label>
+                            <select class="form-control" name="tomONG">
+                                <option value="">Selecione...</option>
+                                <option value="Inspirador">Inspirador e esperançoso</option>
+                                <option value="Urgente">Urgente e mobilizador</option>
+                                <option value="Comunitário">Comunitário e acolhedor</option>
+                                <option value="Profissional">Profissional e sério</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Generic fallback -->
+                    <div class="industry-questions" data-industry="generic" style="display: none;">
+                        <div class="form-group">
+                            <label class="form-label" for="detalhesEspecificos">Conte mais detalhes específicos sobre seu negócio</label>
+                            <textarea class="form-control" name="detalhesEspecificos" placeholder="Ex: Principais serviços, diferenciais técnicos, certificações, prêmios..." rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="caracteristicaUnica">O que torna seu negócio único no mercado?</label>
+                            <textarea class="form-control" name="caracteristicaUnica" placeholder="Descreva aqui..." rows="2"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bloco 15: Canais Digitais -->
+            <div class="block" data-block="15">
+                <div class="form-section">
+                    <h2>15. Canais Digitais e Presença Online</h2>
+                    <p class="section-description">Como você se comunica digitalmente</p>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Você já tem presença digital? Marque tudo que você já tem:</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="digital1" name="presencaDigital" value="Site">
+                                <label for="digital1">Site próprio</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="digital2" name="presencaDigital" value="Instagram">
+                                <label for="digital2">Instagram</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="digital3" name="presencaDigital" value="Facebook">
+                                <label for="digital3">Facebook</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="digital4" name="presencaDigital" value="LinkedIn">
+                                <label for="digital4">LinkedIn</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="digital5" name="presencaDigital" value="WhatsApp Business">
+                                <label for="digital5">WhatsApp Business</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="digital6" name="presencaDigital" value="Google Meu Negócio">
+                                <label for="digital6">Google Meu Negócio</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="digital7" name="presencaDigital" value="Nenhum">
+                                <label for="digital7">Ainda não tenho presença digital</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="frequenciaConteudo">Com que frequência você posta conteúdo nas redes sociais?</label>
+                        <select id="frequenciaConteudo" name="frequenciaConteudo" class="form-control">
+                            <option value="">Selecione...</option>
+                            <option value="Diariamente">Todos os dias</option>
+                            <option value="Semanalmente">Algumas vezes por semana</option>
+                            <option value="Mensalmente">Algumas vezes por mês</option>
+                            <option value="Raramente">Raramente posto</option>
+                            <option value="Nunca">Ainda não comecei</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Você vai precisar de templates para redes sociais?</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="temp1" name="templates" value="Sim">
+                                <label for="temp1">Sim, preciso de templates para posts, stories, etc.</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="temp2" name="templates" value="Não">
+                                <label for="temp2">Não, só a logo e cores</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="temp3" name="templates" value="Não sei">
+                                <label for="temp3">Não sei, a equipe pode recomendar</label>
+                            </div>
+                        </div>
+                        <small style="color: var(--color-text-secondary); font-size: var(--font-size-sm); display: block; margin-top: var(--space-8);">💡 Templates facilitam a criação de conteúdo consistente e profissional</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bloco 16: Expansão e Futuro -->
+            <div class="block" data-block="16">
+                <div class="form-section">
+                    <h2>16. Planos de Expansão</h2>
+                    <p class="section-description">Vamos pensar no futuro do seu negócio</p>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Você planeja expandir nos próximos 12 meses?</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="exp1" name="expansao" value="Sim">
+                                <label for="exp1">Sim, tenho planos de crescimento</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="exp2" name="expansao" value="Talvez">
+                                <label for="exp2">Talvez, depende dos resultados</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="exp3" name="expansao" value="Não">
+                                <label for="exp3">Não, quero manter como está</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="tipoExpansao">Se sim, que tipo de expansão?</label>
+                        <textarea id="tipoExpansao" name="tipoExpansao" class="form-control" placeholder="Ex: Abrir novas unidades, lançar novos produtos, expandir para outras cidades, vender online..." rows="2"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="visaoFuturo">Como você imagina seu negócio daqui a 2-3 anos?</label>
+                        <textarea id="visaoFuturo" name="visaoFuturo" class="form-control" placeholder="Ex: Referência regional na área, ter 3 lojas, atender clientes em todo Brasil..." rows="3"></textarea>
+                        <small style="color: var(--color-text-secondary); font-size: var(--font-size-sm); display: block; margin-top: var(--space-4);">💡 Sua visão de futuro ajuda a criar uma marca que acompanha seu crescimento</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bloco 17: Orçamento e Investimento -->
+            <div class="block" data-block="17">
+                <div class="form-section">
+                    <h2>17. Orçamento e Investimento</h2>
+                    <p class="section-description">Vamos entender o investimento que você pode fazer</p>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Qual é sua faixa de investimento para identidade visual completa?</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="orc1" name="orcamento" value="Básico">
+                                <label for="orc1">Básico - Logo + cores + cartão de visita</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="orc2" name="orcamento" value="Intermediário">
+                                <label for="orc2">Intermediário - Logo + manual de marca + papelaria</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="orc3" name="orcamento" value="Completo">
+                                <label for="orc3">Completo - Identidade visual full + aplicações + templates digitais</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="orc4" name="orcamento" value="Premium">
+                                <label for="orc4">Premium - Tudo + branding strategy + materiais promocionais</label>
+                            </div>
+                        </div>
+                        <small style="color: var(--color-text-secondary); font-size: var(--font-size-sm); display: block; margin-top: var(--space-8);">💡 Isso ajuda a equipe a propor o pacote ideal para você</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Você tem orçamento para impressão de materiais?</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="imp1" name="impressao" value="Sim">
+                                <label for="imp1">Sim, vou imprimir cartões, papelaria, etc.</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="imp2" name="impressao" value="Não">
+                                <label for="imp2">Não, só vou usar digitalmente</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="imp3" name="impressao" value="Futuro">
+                                <label for="imp3">Não agora, mas futuramente</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bloco 18: Sazonalidade e Promoções -->
+            <div class="block" data-block="18">
+                <div class="form-section">
+                    <h2>18. Sazonalidade e Promoções</h2>
+                    <p class="section-description">Como seu negócio se comporta ao longo do ano</p>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Seu negócio tem períodos sazonais ou datas comemorativas importantes?</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="saz1" name="sazonalidade" value="Sim">
+                                <label for="saz1">Sim, tenho picos em determinadas épocas</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="saz2" name="sazonalidade" value="Não">
+                                <label for="saz2">Não, é estável o ano todo</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="datasImportantes">Quais datas/períodos são mais importantes?</label>
+                        <textarea id="datasImportantes" name="datasImportantes" class="form-control" placeholder="Ex: Natal, Dia das Mães, Black Friday, volta às aulas, verão..." rows="2"></textarea>
+                        <small style="color: var(--color-text-secondary); font-size: var(--font-size-sm); display: block; margin-top: var(--space-4);">💡 Isso ajuda a pensar em adaptações sazonais da marca</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Você faz campanhas promocionais?</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="promo1" name="promocoes" value="Sim">
+                                <label for="promo1">Sim, regularmente</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="promo2" name="promocoes" value="Às vezes">
+                                <label for="promo2">Às vezes, em datas específicas</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="promo3" name="promocoes" value="Não">
+                                <label for="promo3">Não faço promoções</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bloco 19: Equipe e Estrutura -->
+            <div class="block" data-block="19">
+                <div class="form-section">
+                    <h2>19. Equipe e Estrutura</h2>
+                    <p class="section-description">Como está organizado seu negócio</p>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Quantas pessoas trabalham no negócio?</label>
+                        <select id="tamanhoEquipe" name="tamanhoEquipe" class="form-control">
+                            <option value="">Selecione...</option>
+                            <option value="Só eu">Só eu (empreendedor solo)</option>
+                            <option value="2-5">2 a 5 pessoas</option>
+                            <option value="6-10">6 a 10 pessoas</option>
+                            <option value="11-20">11 a 20 pessoas</option>
+                            <option value="20+">Mais de 20 pessoas</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Sua equipe usa uniformes ou identificação visual?</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="unif1" name="uniformes" value="Sim">
+                                <label for="unif1">Sim, usam</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="unif2" name="uniformes" value="Não">
+                                <label for="unif2">Não, mas gostaria</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="unif3" name="uniformes" value="Não precisa">
+                                <label for="unif3">Não é necessário</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="culturaMarca">Como você descreveria a cultura/personalidade da sua equipe?</label>
+                        <textarea id="culturaMarca" name="culturaMarca" class="form-control" placeholder="Ex: Somos jovens e descontraídos. OU: Profissionais sérios e dedicados. OU: Criativos e inovadores..." rows="2"></textarea>
+                        <small style="color: var(--color-text-secondary); font-size: var(--font-size-sm); display: block; margin-top: var(--space-4);">💡 A personalidade da equipe deve refletir na marca</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bloco 20: Tom de Voz e Comunicação -->
+            <div class="block" data-block="20">
+                <div class="form-section">
+                    <h2>20. Tom de Voz e Comunicação</h2>
+                    <p class="section-description">Como sua marca deve se comunicar</p>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Como você se comunica com seus clientes?</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="tom1" name="tomVoz" value="Formal">
+                                <label for="tom1">Formal - tratamento por senhor/senhora, linguagem técnica</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="tom2" name="tomVoz" value="Informal">
+                                <label for="tom2">Informal - você, linguagem simples e próxima</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="tom3" name="tomVoz" value="Moderado">
+                                <label for="tom3">Moderado - equilibrado, profissional mas acessível</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Se sua marca fosse uma pessoa, como ela seria?</label>
+                        <textarea id="personalidadeMarca" name="personalidadeMarca" class="form-control" placeholder="Ex: Um amigo próximo que sempre ajuda. OU: Um mentor experiente e confiável. OU: Um parceiro inovador e ousado..." rows="3"></textarea>
+                        <small style="color: var(--color-text-secondary); font-size: var(--font-size-sm); display: block; margin-top: var(--space-4);">💡 Isso ajuda a definir a personalidade visual e comunicação da marca</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="fraseEfeito">Você já tem ou gostaria de ter uma frase de efeito (tagline)?</label>
+                        <input type="text" id="fraseEfeito" name="fraseEfeito" class="form-control" placeholder="Ex: 'Tecnologia que simplifica' ou 'Sabor que aquece'">
+                        <small style="color: var(--color-text-secondary); font-size: var(--font-size-sm); display: block; margin-top: var(--space-4);">💡 Deixe em branco se não tiver - a equipe pode ajudar a criar</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bloco 21: Marca Existente (se aplicável) -->
+            <div class="block" data-block="21">
+                <div class="form-section">
+                    <h2>21. Sobre Marca Existente (se tiver)</h2>
+                    <p class="section-description">Se você já tem alguma identidade visual, conte mais</p>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Você já tem uma logo ou identidade visual?</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="exist1" name="marcaExistente" value="Não">
+                                <label for="exist1">Não, vou criar do zero</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="exist2" name="marcaExistente" value="Informal">
+                                <label for="exist2">Tenho algo informal (feito por mim ou amigo)</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="exist3" name="marcaExistente" value="Profissional">
+                                <label for="exist3">Sim, tenho identidade profissional mas quero renovar</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="motivoMudanca">Se já tem marca, por que quer mudar?</label>
+                        <textarea id="motivoMudanca" name="motivoMudanca" class="form-control" placeholder="Ex: Está desatualizada, não representa mais o negócio, não funciona bem digitalmente, não transmite profissionalismo..." rows="3"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="manterElementos">Tem algo da marca atual que você gostaria de manter?</label>
+                        <textarea id="manterElementos" name="manterElementos" class="form-control" placeholder="Ex: As cores atuais, o símbolo, a tipografia, algum elemento específico..." rows="2"></textarea>
+                        <small style="color: var(--color-text-secondary); font-size: var(--font-size-sm); display: block; margin-top: var(--space-4);">💡 Às vezes vale manter algo que já é reconhecido pelos clientes</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bloco 22: Pronto! -->
+            <div class="block" data-block="22">
+                <div class="form-section">
+                    <h2>22. Pronto!</h2>
+                    <p class="section-description">Parabéns por completar este briefing detalhado!</p>
                     
                     <div class="form-group">
                         <label class="form-label" for="adicional">Tem mais alguma coisa importante que não perguntamos?</label>
@@ -1372,8 +1923,8 @@ input[type="range"]::-moz-range-thumb {
                     </div>
 
                     <div style="background-color: var(--color-bg-3); padding: var(--space-16); border-radius: var(--radius-base); margin-top: var(--space-24);">
-                        <h3 style="font-size: var(--font-size-lg); margin-bottom: var(--space-8);">✓ Parabéns por concluir o briefing!</h3>
-                        <p style="margin: 0; color: var(--color-text-secondary);">Ao clicar em "Enviar Briefing", suas respostas serão enviadas para nossa equipe de design. Com essas informações, conseguiremos criar uma identidade visual completa: logo, paleta de cores, tipografia, aplicações e diretrizes de uso. Entraremos em contato em breve!</p>
+                        <h3 style="font-size: var(--font-size-lg); margin-bottom: var(--space-8);">✓ Briefing completo - 22 blocos respondidos!</h3>
+                        <p style="margin: 0; color: var(--color-text-secondary);">Ao clicar em "Enviar Briefing", suas respostas detalhadas serão enviadas para nossa equipe de design. Com todas essas informações abrangentes, conseguiremos criar uma identidade visual perfeita e completa: logo, paleta de cores, tipografia, manual de marca, aplicações para todos os canais, templates digitais e diretrizes detalhadas de uso. Nossa equipe entrará em contato em breve para iniciar o desenvolvimento!</p>
                     </div>
                 </div>
             </div>
@@ -1395,7 +1946,8 @@ input[type="range"]::-moz-range-thumb {
 
     <script>
         let currentBlock = 1;
-        const totalBlocks = 13;
+        const totalBlocks = 22;
+        let selectedBusinessType = '';
         const sheetUrl = "https://script.google.com/macros/s/AKfycbxJMPcEBGa5RB54EQuTpZGDyxaPxhnGrz2_YcZeG6L7ULlml8I5y00J_Q6zKVqUXpvuAA/exec";
 
         // Required fields by block
@@ -1412,7 +1964,16 @@ input[type="range"]::-moz-range-thumb {
             10: ['aplicacoes'],
             11: [],
             12: ['prazo', 'aprovacao'],
-            13: []
+            13: ['motivoIdentidade'],
+            14: [],
+            15: [],
+            16: [],
+            17: [],
+            18: [],
+            19: [],
+            20: [],
+            21: [],
+            22: []
         };
 
         const prevBtn = document.getElementById('prevBtn');
@@ -1440,6 +2001,11 @@ input[type="range"]::-moz-range-thumb {
                 activeBlock.classList.add('active');
             }
 
+            // Show industry-specific questions on block 14
+            if (blockNumber === 14) {
+                showIndustryQuestions();
+            }
+
             // Update buttons
             prevBtn.style.display = blockNumber === 1 ? 'none' : 'block';
             nextBtn.style.display = blockNumber === totalBlocks ? 'none' : 'block';
@@ -1448,6 +2014,39 @@ input[type="range"]::-moz-range-thumb {
             updateProgress();
             validateBlockFields(blockNumber);
             window.scrollTo(0, 0);
+        }
+
+        function showIndustryQuestions() {
+            // Hide all industry questions first
+            document.querySelectorAll('.industry-questions').forEach(section => {
+                section.style.display = 'none';
+            });
+
+            // Show relevant industry questions based on selected business type
+            const businessType = selectedBusinessType;
+            let matchedSection = null;
+
+            if (businessType.includes('Restaurante') || businessType.includes('Café') || businessType.includes('Bar') || businessType.includes('Padaria')) {
+                matchedSection = document.querySelector('.industry-questions[data-industry="Restaurante/Café/Bar"]');
+            } else if (businessType.includes('E-commerce') || businessType.includes('Loja Online')) {
+                matchedSection = document.querySelector('.industry-questions[data-industry="E-commerce/Loja Online"]');
+            } else if (businessType.includes('Tecnologia') || businessType.includes('SaaS') || businessType.includes('Startup')) {
+                matchedSection = document.querySelector('.industry-questions[data-industry="Tecnologia/Startup"]');
+            } else if (businessType.includes('Saúde') || businessType.includes('Wellness')) {
+                matchedSection = document.querySelector('.industry-questions[data-industry="Saúde e Wellness"]');
+            } else if (businessType.includes('Moda') || businessType.includes('Vestuário') || businessType.includes('Acessórios')) {
+                matchedSection = document.querySelector('.industry-questions[data-industry="Moda/Design"]');
+            } else if (businessType.includes('Consultoria') || businessType.includes('Serviços Profissionais')) {
+                matchedSection = document.querySelector('.industry-questions[data-industry="Consultoria/Serviços"]');
+            } else if (businessType.includes('Nonprofit') || businessType.includes('ONG') || businessType.includes('Associação')) {
+                matchedSection = document.querySelector('.industry-questions[data-industry="Nonprofit/ONG"]');
+            } else {
+                matchedSection = document.querySelector('.industry-questions[data-industry="generic"]');
+            }
+
+            if (matchedSection) {
+                matchedSection.style.display = 'block';
+            }
         }
 
         function validateBlockFields(blockNum) {
@@ -1672,6 +2271,11 @@ input[type="range"]::-moz-range-thumb {
                 }
             });
         }
+
+        // Track business type selection
+        document.getElementById('tipoNegocio').addEventListener('change', function() {
+            selectedBusinessType = this.value;
+        });
 
         // Initialize
         addValidationListeners();
